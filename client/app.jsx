@@ -1,35 +1,47 @@
 import React from 'react';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 // import Home from './pages/home';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isToggledOn: false };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({ isToggledOn: !this.state.isToggledOn });
+  }
+
   render() {
+    const toggle = this.state.isToggledOn;
+    let menu = 'hidden';
+    let drawer = 'open';
+    if (toggle) {
+      drawer = 'hidden';
+      menu = 'open';
+    } else {
+      drawer = 'open';
+      menu = 'hidden';
+    }
     return (
       <div className='header'>
         <div className='title'>
           <h1>Penguin Masterpieces</h1>
         </div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Navbar</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item active">
-              <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Features</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Pricing</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
+        <div className="navbar">
+          <div className={`drawer ${drawer}`}>
+            <i onClick={this.handleClick} className="fas fa-bars"></i>
+          </div>
+          <div className={`menu ${menu}`}>
+            <h3 onClick={this.handleClick}>Menu</h3>
+            <h4 onClick={this.handleClick}>About</h4>
+            <h4 onClick={this.handleClick}>Get Started</h4>
+            <h4 onClick={this.handleClick}>Sign In</h4>
+          </div>
+          <div onClick={this.handleClick} className={`theShade ${menu}`}></div>
         </div>
-      </nav>
       </div>
     );
   }
