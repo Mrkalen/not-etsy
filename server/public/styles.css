@@ -3,26 +3,49 @@
 }
 
 body {
-  margin: 0 auto;
+  margin: auto 0;
 }
 
-.navbar {
-  display: flex;
+i {
+  font-size: 1.25rem;
+}
+
+.header {
+  background-color: #66acad;
+}
+
+.title > h1 {
+  padding: 1rem;
+  margin: auto;
 }
 
 i:hover,
-h1:hover,
-h2:hover {
+h3:hover,
+h4:hover {
   cursor: pointer;
 }
 
-.drawer {
-  margin: 1rem;
+.title {
+  text-align: center;
+}
+
+.container.nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background-color: #c5f9fa;
+}
+
+.search {
+  margin-right: 1rem;
+  padding-left: 0.25rem;
+  border-radius: 50px;
+  border: 0 white solid;
 }
 
 .menu {
-  margin-left: 1rem;
-  margin-top: 1rem;
+  background-color: white;
+  padding: 1rem;
 }
 
 .theShade {
