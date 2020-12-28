@@ -26,12 +26,6 @@ img {
   margin: 1rem;
 }
 
-.card {
-  /* filter: drop-shadow(3px 3px 2px grey);
-  background-color: rgb(245, 245, 245);
-  text-align: center; */
-}
-
 .card-body {
   padding: 0.25rem 0;
 }
