@@ -10,7 +10,6 @@ export default class NewItems extends React.Component {
     const image = this.state.products.props.img;
     const title = this.state.products.props.item;
     const price = this.state.products.props.price;
-    // console.log(image);
     return (
     <div className="card">
         <img src={image}></img>

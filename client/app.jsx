@@ -24,12 +24,11 @@ export default class App extends React.Component {
 
   render() {
     const products = this.state.products;
-    // console.log('produtcts', products);
     return (
       <>
       <Header />
       {
-      products.map((product, index) => {
+      products.reverse().map((product, index) => {
         return <NewItems key={index} item={product.productName} price={product.price} img={product.pictureUrl}/>;
       })
       }
