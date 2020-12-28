@@ -11,7 +11,7 @@ export default function NewItems(props) {
           <img src={image}></img>
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
-            <a href="#" className="btn btn-primary">{`$${price}`}</a>
+          <h5 className='price'>{`$${price}`}</h5>
           </div>
         </div>
       </div>
