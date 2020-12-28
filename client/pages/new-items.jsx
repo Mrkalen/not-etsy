@@ -3,17 +3,20 @@ import React from 'react';
 export default class NewItems extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { item: {} };
+    this.state = { products: { props } };
   }
 
   render() {
-    const image = '';
+    const image = this.state.products.props.img;
+    const title = this.state.products.props.item;
+    const price = this.state.products.props.price;
+    // console.log(image);
     return (
     <div className="card">
         <img src={image}></img>
         <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+          <h5 className="card-title">{title}</h5>
+          <p className="card-text">{`$${price}`}</p>
           <a href="#" className="btn btn-primary">Go somewhere</a>
         </div>
     </div>
