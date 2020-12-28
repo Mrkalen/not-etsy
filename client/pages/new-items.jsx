@@ -7,7 +7,7 @@ export default function NewItems(props) {
   const price = props.price;
   return (
       <div className='col-6'>
-        <div className="card">
+        <div className="card mb-3 shadow-sm text-center">
           <img src={image}></img>
           <div className="card-body">
             <h5 className="card-title">{title}</h5>

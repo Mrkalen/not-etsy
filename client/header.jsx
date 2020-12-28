@@ -6,8 +6,8 @@ export default class Header extends React.Component {
 
     return (
       <div className='header'>
-        <div className='title'>
-          <h1>Penguin Masterpieces</h1>
+        <div>
+          <h1 className='title'>Penguin Masterpieces</h1>
         </div>
         <div className="container nav">
       </div>
