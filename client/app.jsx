@@ -27,11 +27,14 @@ export default class App extends React.Component {
     return (
       <>
       <Header />
+        <div className='row'>
       {
       products.reverse().map((product, index) => {
         return <NewItems key={index} item={product.productName} price={product.price} img={product.pictureUrl}/>;
       })
+
       }
+      </div>
       </>
     );
   }

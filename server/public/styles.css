@@ -8,13 +8,22 @@ body {
 
 i {
   font-size: 1.25rem;
+  filter: drop-shadow(3px 3px 2px grey);
 }
 
-.header {
-  background-color: #66acad;
+img {
+  object-fit: contain;
+  max-height: 10rem;
+}
+
+.title {
+  text-align: center;
 }
 
 .title > h1 {
+  background: radial-gradient(50% 50% at 50% 50%, #c5f9fa 25%, rgba(255, 255, 255, 0) 100%), #66acad;
+  font-family: 'Almendra SC', serif;
+  font-size: 2rem;
   padding: 1rem;
   margin: auto;
 }
@@ -23,10 +32,6 @@ i:hover,
 h3:hover,
 h4:hover {
   cursor: pointer;
-}
-
-.title {
-  text-align: center;
 }
 
 .container.nav {
@@ -57,4 +62,19 @@ h4:hover {
 
 .hidden {
   display: none;
+}
+
+.row {
+  margin: 1rem;
+}
+
+.card {
+  filter: drop-shadow(3px 3px 2px grey);
+  background-color: rgb(245, 245, 245);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.card-body {
+  padding: 0.25rem 0;
 }
