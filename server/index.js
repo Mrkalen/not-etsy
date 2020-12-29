@@ -17,6 +17,7 @@ app.get('/api/products', (req, res, next) => {
   const sql = `
   select *
     from products
+  order by "productId" desc;
     `;
   db.query(sql)
     .then(result => {

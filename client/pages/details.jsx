@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Custom1 extends React.Component {
+export default class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +22,20 @@ export default class Custom1 extends React.Component {
       .catch(err => console.error('GET error', err.message));
   }
 
+  renderForm() {
+    const { customizationId } = this.state.currentProduct;
+    if (customizationId === '4') {
+      return (
+      <div className='text-left m-3'>
+        <label htmlFor='custom-request' className='custom-request'>
+          Please enter any custom details:
+            </label>
+        <textarea cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
+      </div>
+      );
+    }
+  }
+
   render() {
     if (!this.state.currentProduct) return null;
     const { pictureUrl, productName, price, description } = this.state.currentProduct;
@@ -34,12 +48,7 @@ export default class Custom1 extends React.Component {
             <h5>Description:</h5>
             <h5>{description}</h5>
             </div>
-            <div className='text-left m-3'>
-            <label htmlFor='custom-request' className='custom-request'>
-              Please enter any custom details:
-            </label>
-            <textarea cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
-            </div>
+            {this.renderForm()}
           </div>
 
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './header';
 import NewItems from './pages/new-items';
 import parseRoute from './lib/parse-route';
-import Custom1 from './pages/custom1';
+import Details from './pages/details';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ export default class App extends React.Component {
       return (
       <div className='row'>
       {
-    products.reverse().map((product, index) => {
+    products.map((product, index) => {
       return <NewItems key={index} product={product} />;
     })
   }
@@ -46,7 +46,7 @@ export default class App extends React.Component {
       );
     } else if (route.path === 'details4') {
       return (
-        <Custom1 prodId={prodId} />
+        <Details prodId={prodId} />
       );
     }
   }
