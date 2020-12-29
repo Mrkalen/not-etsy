@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function NewItems(props) {
+function Product(props) {
   const { pictureUrl, productName, price, productId } = props.product;
   return (
     <div className='col-6'>
@@ -9,10 +9,27 @@ export default function NewItems(props) {
           <img className='img-no-detail' src={pictureUrl}></img>
           <div className="card-body">
             <h5 className="card-title">{productName}</h5>
-          <h5 className='price'>{`$${price}`}</h5>
+            <h5 className='price'>{`$${price}`}</h5>
           </div>
         </div>
-        </a>
-      </div>
+      </a>
+    </div>
   );
 }
+
+function NewItems(props) {
+
+  return (
+    props.products.map((product, index) => {
+      return (
+        <Product
+          key={product.productId}
+          product={product}
+          />
+      );
+    }
+    )
+  );
+}
+
+export default NewItems;

@@ -30,21 +30,17 @@ export default class App extends React.Component {
   }
 
   renderPage() {
-    const prodId = Number(this.state.route.id);
-    const { route } = this.state;
-    const products = this.state.products;
-
+    const prodId = this.state.route.params.get('productId');
+    const { route, products } = this.state;
     if (route.path === '') {
       return (
       <div className='row'>
       {
-    products.map((product, index) => {
-      return <NewItems key={index} product={product} />;
+      <NewItems products={products} />
     })
-  }
   </div>
       );
-    } else if (route.path === 'details4') {
+    } else if (route.path === 'details') {
       return (
         <Details prodId={prodId} />
       );

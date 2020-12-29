@@ -24,7 +24,7 @@ export default class Details extends React.Component {
 
   renderForm() {
     const { customizationId } = this.state.currentProduct;
-    if (customizationId === '4') {
+    if (customizationId === 4) {
       return (
       <div className='text-left m-3'>
         <label htmlFor='custom-request' className='custom-request'>
