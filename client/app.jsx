@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './header';
 import NewItems from './pages/new-items';
-import parseRoute from '../server/parse-route';
+import parseRoute from './lib/parse-route';
 import Custom1 from './pages/custom1';
 
 export default class App extends React.Component {
