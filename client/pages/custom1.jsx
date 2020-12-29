@@ -34,7 +34,13 @@ export default class Custom1 extends React.Component {
             <h5 className='price'>{`$${price}`}</h5>
             <div className='text-left m-2'>
             <h5>Description:</h5>
-            <h5>{description}</h5>
+            <h5 className='font-weight-normal'>{description}</h5>
+            </div>
+            <div className='text-left m-2 mt-5'>
+            <label htmlFor='custom-request'>
+              Please enter any custom details:
+            </label>
+            <textarea className='m-2' cols='40' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
             </div>
           </div>
         </div>

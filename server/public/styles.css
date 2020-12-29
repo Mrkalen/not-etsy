@@ -29,3 +29,8 @@ img {
 .card-body {
   padding: 0.25rem 0;
 }
+
+textarea {
+  border: 1px solid black;
+  resize: none;
+}
