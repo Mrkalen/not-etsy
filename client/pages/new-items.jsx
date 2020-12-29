@@ -10,7 +10,7 @@ export default function NewItems(props) {
     <div className='col-6'>
       <a href={`#details${customization}?productId=${productId}`}>
         <div className="card mb-3 shadow-sm text-center">
-          <img src={image}></img>
+          <img className='img-no-detail' src={image}></img>
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
           <h5 className='price'>{`$${price}`}</h5>

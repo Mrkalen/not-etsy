@@ -1,9 +1,19 @@
+body {
+  font-family: 'Philosopher', sans-serif;
+}
+
 i {
   font-size: 1.25rem;
   filter: drop-shadow(3px 3px 2px grey);
 }
 
-img {
+textarea {
+  border-radius: 5px;
+  filter: drop-shadow(0 3px 2px grey);
+  resize: none;
+}
+
+.img-no-detail {
   object-fit: contain;
   max-height: 10rem;
 }
@@ -30,7 +40,10 @@ img {
   padding: 0.25rem 0;
 }
 
-textarea {
-  border: 1px solid black;
-  resize: none;
+.custom-request {
+  font-size: 20px;
+}
+
+.img-detail {
+  filter: drop-shadow(0 3px 2px grey);
 }
