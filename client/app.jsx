@@ -9,8 +9,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       products: [],
-      route: parseRoute(window.location.hash),
-      currentProduct: {}
+      route: parseRoute(window.location.hash)
     };
 
   }
@@ -21,7 +20,6 @@ export default class App extends React.Component {
       const newRoute = parseRoute(window.location.hash);
       this.setState({ route: newRoute });
     });
-    this.getProduct();
   }
 
   getProducts() {
@@ -31,18 +29,8 @@ export default class App extends React.Component {
       .catch(err => console.error('GET error', err.message));
   }
 
-  getProduct() {
-    const prodId = Number(this.state.route.id);
-    fetch(`/api/product/${prodId}`)
-      .then(res => res.json())
-      .then(product => {
-        this.setState({ currentProduct: product });
-      })
-      .catch(err => console.error('GET error', err.message));
-  }
-
   renderPage() {
-
+    const prodId = Number(this.state.route.id);
     const { route } = this.state;
     const products = this.state.products;
 
@@ -58,7 +46,7 @@ export default class App extends React.Component {
       );
     } else if (route.path === 'details4') {
       return (
-        <Custom1 product={this.state.currentProduct} />
+        <Custom1 prodId={prodId} />
       );
     }
   }
