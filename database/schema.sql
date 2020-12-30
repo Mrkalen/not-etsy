@@ -42,5 +42,32 @@ CREATE TABLE "customization" (
 
 
 
+CREATE TABLE "CartItems" (
+	"cartItemsId" serial NOT NULL,
+	"cartId" int NOT NULL,
+	"productId" int NOT NULL,
+	"customizations" json NOT NULL,
+	"quantity" int NOT NULL,
+	CONSTRAINT "CartItems_pk" PRIMARY KEY ("cartItemsId")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "carts" (
+	"cartId" serial NOT NULL,
+	CONSTRAINT "carts_pk" PRIMARY KEY ("cartId")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
 ALTER TABLE "products" ADD CONSTRAINT "products_fk0" FOREIGN KEY ("categoryId") REFERENCES "categories"("categoryId");
 ALTER TABLE "products" ADD CONSTRAINT "products_fk1" FOREIGN KEY ("customizationId") REFERENCES "customization"("customizationId");
+
+
+
+ALTER TABLE "CartItems" ADD CONSTRAINT "CartItems_fk0" FOREIGN KEY ("cartId") REFERENCES "carts"("cartId");
+ALTER TABLE "CartItems" ADD CONSTRAINT "CartItems_fk1" FOREIGN KEY ("productId") REFERENCES "products"("productId");
