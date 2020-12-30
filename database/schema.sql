@@ -42,9 +42,9 @@ CREATE TABLE "customization" (
 
 
 
-CREATE TABLE "CartItems" (
+CREATE TABLE "cartItems" (
 	"cartItemsId" serial NOT NULL,
-	"cartId" int NOT NULL,
+	"cartId" int,
 	"productId" int NOT NULL,
 	"customizations" json NOT NULL,
 	"quantity" int NOT NULL,
@@ -69,5 +69,5 @@ ALTER TABLE "products" ADD CONSTRAINT "products_fk1" FOREIGN KEY ("customization
 
 
 
-ALTER TABLE "CartItems" ADD CONSTRAINT "CartItems_fk0" FOREIGN KEY ("cartId") REFERENCES "carts"("cartId");
-ALTER TABLE "CartItems" ADD CONSTRAINT "CartItems_fk1" FOREIGN KEY ("productId") REFERENCES "products"("productId");
+ALTER TABLE "cartItems" ADD CONSTRAINT "cartItems_fk0" FOREIGN KEY ("cartId") REFERENCES "carts"("cartId");
+ALTER TABLE "cartItems" ADD CONSTRAINT "cartItems_fk1" FOREIGN KEY ("productId") REFERENCES "products"("productId");
