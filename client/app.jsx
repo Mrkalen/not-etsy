@@ -15,30 +15,20 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getProducts();
     window.addEventListener('hashchange', () => {
       const newRoute = parseRoute(window.location.hash);
       this.setState({ route: newRoute });
     });
   }
 
-  getProducts() {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(products => this.setState({ products }))
-      .catch(err => console.error('GET error', err.message));
-  }
-
   renderPage() {
     const prodId = this.state.route.params.get('productId');
-    const { route, products } = this.state;
+    const { route } = this.state;
     if (route.path === '') {
       return (
-      <div className='row'>
-      {
-      <NewItems products={products} />
-    })
-  </div>
+        <div className='row'>
+          { <NewItems />}
+        </div>
       );
     } else if (route.path === 'details') {
       return (
@@ -51,8 +41,8 @@ export default class App extends React.Component {
 
     return (
       <>
-      <Header />
-      { this.renderPage() }
+        <Header />
+        { this.renderPage()}
 
       </>
     );

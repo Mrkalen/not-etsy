@@ -9,7 +9,6 @@ i {
 
 textarea {
   border-radius: 5px;
-  filter: drop-shadow(0 3px 2px grey);
   resize: none;
 }
 
@@ -46,4 +45,12 @@ textarea {
 
 .img-detail {
   filter: drop-shadow(0 3px 2px grey);
+}
+
+.team-name {
+  font-size: 20px;
+}
+
+.custom-name-date {
+  font-size: 20px;
 }

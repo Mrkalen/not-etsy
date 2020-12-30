@@ -1,21 +1,9 @@
 import React from 'react';
 
-class Product extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { products: [] };
-  }
+function Product(props) {
 
-  getProducts() {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(products => this.setState({ products }))
-      .catch(err => console.error('GET error', err.message));
-  }
-
-  render() {
-    const { pictureUrl, productName, price, productId } = this.props.product;
-    return (
+  const { pictureUrl, productName, price, productId } = props.product;
+  return (
     <div className='col-6'>
       <a href={`#details?productId=${productId}`}>
         <div className="card mb-3 shadow-sm text-center">
@@ -27,23 +15,39 @@ class Product extends React.Component {
         </div>
       </a>
     </div>
-    );
-  }
+  );
 }
 
-function NewItems(props) {
+class NewItems extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { products: [] };
+  }
 
-  return (
-    props.products.map((product, index) => {
-      return (
-        <Product
-          key={product.productId}
-          product={product}
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  getProducts() {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(products => this.setState({ products }))
+      .catch(err => console.error('GET error', err.message));
+  }
+
+  render() {
+    return (
+      this.state.products.map((product, index) => {
+        return (
+          <Product
+            key={product.productId}
+            product={product}
           />
-      );
-    }
-    )
-  );
+        );
+      }
+      )
+    );
+  }
 }
 
 export default NewItems;
