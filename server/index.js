@@ -4,6 +4,7 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
+const jwt = require('jsonwebtoken');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL
@@ -66,16 +67,51 @@ app.post('/api/cartItems', (req, res, next) => {
   } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum)) {
     throw new ClientError(400, 'Quantity and ProductId need to be positive integers.');
   }
-  const sql = `
-    insert into "cartItems" ("productId", "customizations", "quantity")
-         values ($1, $2, $3)
+  const token = req.headers['x-access-token'];
+  const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+  const cartId = payload.cartId;
+  if (!cartId) {
+    const sql = `
+    insert into "carts"
+         values (default)
       returning *
       `;
-  const params = [productId, customizations, quantity];
-  db.query(sql, params)
-    .then(result => {
-      console.log(result);
-    });
+    db.query(sql)
+      .then(result => {
+        const payload = { cartId: result.rows[0].cartId };
+        const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+        const response = { payload, token };
+        return response;
+      })
+      .then(response => {
+        const newCartId = response.payload.cartId;
+        const token = response.token;
+        const sql = `
+    insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
+         values ($1, $2, $3, $4)
+      returning *
+      `;
+        const params = [productId, customizations, quantity, newCartId];
+        db.query(sql, params)
+          .then(result => {
+            const cartDetails = result.rows[0];
+            res.status(200).json({ cartDetails, token });
+          })
+          .catch(err => next(err));
+      });
+  } else {
+    const sql = `
+    insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
+         values ($1, $2, $3, $4)
+      returning *
+      `;
+    const params = [productId, customizations, quantity, cartId];
+    db.query(sql, params)
+      .then(result => {
+        res.status(200).json(result.rows);
+      })
+      .catch(err => next(err));
+  }
 });
 
 app.use(errorMiddleware);
