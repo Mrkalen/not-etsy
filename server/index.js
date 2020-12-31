@@ -5,6 +5,7 @@ const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
 const jwt = require('jsonwebtoken');
+const equal = require('./lib/equal');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL
@@ -21,7 +22,7 @@ app.use(staticMiddleware);
 app.get('/api/products', (req, res, next) => {
   const sql = `
   select *
-    from products
+    from "products"
   order by "productId" desc;
     `;
   db.query(sql)
@@ -100,17 +101,38 @@ app.post('/api/cartItems', (req, res, next) => {
           .catch(err => next(err));
       });
   } else {
-    const sql = `
-    insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
-         values ($1, $2, $3, $4)
-      returning *
-      `;
-    const params = [productId, customizations, quantity, cartId];
-    db.query(sql, params)
+    const sqlCart = `
+      select "productId",
+             "customizations"
+        from "cartItems"
+       where "productId" = $1;
+       `;
+    const params = [productId];
+    db.query(sqlCart, params)
       .then(result => {
-        res.status(200).json(result.rows);
+        const newItemParsed = JSON.parse(customizations);
+        const newItem = Object.values(newItemParsed);
+        for (let i = 0; i < result.rows.length; i++) {
+          const cartItem = Object.values(result.rows[i].customizations);
+          if (equal(cartItem, newItem)) {
+            let newQuantity = quantity;
+            newQuantity++;
+            const sqlItem = `
+              insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
+              values ($1, $2, $3, $4)
+              returning *
+              `;
+            const params = [productId, customizations, newQuantity, cartId];
+            db.query(sqlItem, params)
+              .then(result => {
+                res.status(200).json(result.rows);
+              })
+              .catch(err => next(err));
+          }
+        }
       })
       .catch(err => next(err));
+
   }
 });
 
