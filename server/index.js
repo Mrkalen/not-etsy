@@ -103,7 +103,9 @@ app.post('/api/cartItems', (req, res, next) => {
   } else {
     const sqlCart = `
       select "productId",
-             "customizations"
+             "customizations",
+             "cartItemsId",
+             "quantity"
         from "cartItems"
        where "productId" = $1;
        `;
@@ -112,27 +114,35 @@ app.post('/api/cartItems', (req, res, next) => {
       .then(result => {
         const newItemParsed = JSON.parse(customizations);
         const newItem = Object.values(newItemParsed);
+        const numQuantity = JSON.parse(quantity);
         for (let i = 0; i < result.rows.length; i++) {
+          const cartItemId = result.rows[i].cartItemsId;
+          const cartQuantity = result.rows[i].quantity;
           const cartItem = Object.values(result.rows[i].customizations);
           if (equal(cartItem, newItem)) {
-            let newQuantity = quantity;
-            newQuantity++;
+            const newQuantity = numQuantity + cartQuantity;
             const sqlItem = `
-              insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
-              values ($1, $2, $3, $4)
-              returning *
+              update "cartItems"
+                 set "quantity" = $1
+               where "cartItemsId" = $2
+               returning *;
               `;
-            const params = [productId, customizations, newQuantity, cartId];
-            db.query(sqlItem, params)
-              .then(result => {
-                res.status(200).json(result.rows);
-              })
-              .catch(err => next(err));
+            const params = [newQuantity, cartItemId];
+            return db.query(sqlItem, params);
           }
         }
+        const sqlNewItem = `
+          insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
+               values ($1, $2, $3, $4)
+            returning *;
+            `;
+        const params = [productId, customizations, quantity, cartId];
+        return db.query(sqlNewItem, params);
+      })
+      .then(result => {
+        res.status(200).json(result.rows[0]);
       })
       .catch(err => next(err));
-
   }
 });
 
