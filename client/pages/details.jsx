@@ -4,12 +4,64 @@ export default class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: null
+      currentProduct: null,
+      token: null,
+      customizations: {
+        name: '',
+        date: '',
+        custom: '',
+        brand: ''
+      },
+      quantity: null
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.getProduct();
+  }
+
+  handleChange() {
+    const inputId = event.target.id;
+    const emptyObject = {};
+    const newState = Object.assign(this.state, emptyObject);
+    if (inputId === 'custom-select-brand') {
+      newState.customizations.brand = event.target.value;
+      this.setState(newState);
+      console.log('newState', newState);
+    } else if (inputId === 'custom-request-brand') {
+      newState.customizations.custom = event.target.value;
+      this.setState(newState);
+    } else if (inputId === 'custom-request-name') {
+      newState.customizations.name = event.target.value;
+      this.setState(newState);
+    } else if (inputId === 'custom-request-date') {
+      newState.customizations.date = event.target.value;
+      this.setState(newState);
+      console.log(event.target.id);
+    } else if (inputId === 'custom-request-custom') {
+      newState.customizations.custom = event.target.value;
+      this.setState(newState);
+    } else if (inputId === 'qty-select-custom') {
+
+    }
+  }
+
+  handleSubmit() {
+    event.preventDefault();
+    console.log(event.target);
+    // fetch('api/cartItems', {
+    //   method: 'post',
+    //   body: formData,
+    //   headers: {
+    //     'x-access-token': this.state.token
+    //   }
+    // })
+    //   .then(res => res.json())
+    //   .then(res => console.log(res))
+    //   // .then(() => event.target.reset())
+    //   .catch(err => console.error('Error:', err.message));
   }
 
   getProduct() {
@@ -26,16 +78,16 @@ export default class Details extends React.Component {
     const { customizationId } = this.state.currentProduct;
     if (customizationId === 4) {
       return (
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className='text-left m-3'>
-            <label htmlFor='custom-request' className='custom-request'>
+            <label htmlFor='custom-request-custom' className='custom-request'>
               Please enter any custom details:
             </label>
-            <textarea className='shadow' cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
+            <textarea onChange={this.handleChange} className='shadow' cols='37' rows='3' type='text' id='custom-reqest-custom' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
           </div>
           <div className='row d-flex justify-content-around align-items-center'>
             <div className="input-group col-4">
-              <select className="custom-select shadow pr-3 qty" id="inputGroupSelect03" aria-label="Example select with button addon">
+              <select onChange={this.handleChange} required className="custom-select shadow pr-3 qty" id="qty-select-custom" aria-label="Example select with button addon">
                 <option default>QTY</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -50,26 +102,26 @@ export default class Details extends React.Component {
       );
     } else if (customizationId === 3) {
       return (
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className='text-left m-3'>
             <div className="input-group mb-2 w-50 mx-auto">
-              <select required className="custom-select team-name shadow" id="inputGroupSelect01">
+              <select onChange={this.handleChange} required className="custom-select team-name shadow" id="custom-select-brand">
                 <option defaultValue>Team Name</option>
-                <option value="1">Ram&apos;s</option>
-                <option value="2">Chargers</option>
-                <option value="3">Raiders</option>
-                <option value="4">49ers</option>
-                <option value="5">Seahawks</option>
-                <option value="6">Dolphins</option>
+                <option value="rams">Ram&apos;s</option>
+                <option value="chargers">Chargers</option>
+                <option value="raiders">Raiders</option>
+                <option value="49ers">49ers</option>
+                <option value="seahawks">Seahawks</option>
+                <option value="dolphins">Dolphins</option>
               </select>
             </div>
-            <label htmlFor='custom-request' className='custom-request'>
+            <label htmlFor='custom-request-brand' className='custom-request'>
               Please enter any custom details:
             </label>
-            <textarea className="shadow" cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
+            <textarea onChange={this.handleChange} value={this.state.customizations.custom} className="shadow" cols='37' rows='3' type='text' id='custom-request-brand' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
             <div className='row d-flex justify-content-around align-items-center'>
               <div className="input-group col-4">
-                <select className="custom-select shadow pr-3 qty" id="inputGroupSelect03" aria-label="Example select with button addon">
+                <select onChange={this.handleChange} className="custom-select shadow pr-3 qty" id="qty-select-brand" aria-label="Example select with button addon">
                   <option default>QTY</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -85,27 +137,27 @@ export default class Details extends React.Component {
       );
     } else if (customizationId === 2) {
       return (
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className='text-left m-3'>
             <label htmlFor='custom-name-date' className='custom-name-date'>
               Please enter your last name and an est date:
           </label>
             <div className='custom-name-date-input d-flex justify-content-between'>
               <div className="input-group input-group-sm mb-3 pl-0 col-6">
-                <input type="text" className="form-control shadow" placeholder='Name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                <input onChange={this.handleChange} type="text" className="form-control shadow" id='custom-request-name' placeholder='Name' aria-label="Input for name" aria-describedby="inputGroup-sizing-sm" />
               </div>
               <div className="input-group input-group-sm mb-3 pr-0 col-6 ">
-                <input type="text" className="form-control shadow" placeholder='Date' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                <input onChange={this.handleChange} type="text" className="form-control shadow" id='custom-request-date' placeholder='Date' aria-label="Input for date" aria-describedby="inputGroup-sizing-sm" />
               </div>
             </div>
-            <label htmlFor='custom-request' className='custom-request'>
+            <label htmlFor='custom-request-name-date' className='custom-request'>
               Please enter any custom details:
             </label>
-            <textarea className='shadow' cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
+            <textarea onChange={this.handleChange} className='shadow' cols='37' rows='3' type='text' id='custom-reqest-name-date' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
           </div>
           <div className='row d-flex justify-content-around align-items-center'>
             <div className="input-group col-4">
-              <select className="custom-select shadow pr-3 qty" id="inputGroupSelect03" aria-label="Example select with button addon">
+              <select onChange={this.handleChange} className="custom-select shadow pr-3 qty" id="qty-select-name-date" aria-label="Quantity select for items with name and date">
                 <option default>QTY</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
