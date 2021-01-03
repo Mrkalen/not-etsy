@@ -63,15 +63,13 @@ app.post('/api/cartItems', (req, res, next) => {
   const { productId, customizations, quantity } = req.body;
   const qtyNum = parseInt(quantity, 10);
   const prodNum = parseInt(productId, 10);
-  if (!productId || !customizations || !quantity) {
-    throw new ClientError(400, 'ProductId, Customizations, and quantity are required.');
+  if (!productId) {
+    throw new ClientError(400, 'productId are required.');
   } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum)) {
-    throw new ClientError(400, 'Quantity and ProductId need to be positive integers.');
+    throw new ClientError(400, 'quantity and productId need to be positive integers.');
   }
-  const token = req.headers['x-access-token'];
-  const payload = jwt.verify(token, process.env.TOKEN_SECRET);
-  const cartId = payload.cartId;
-  if (!cartId) {
+  const cartToken = req.headers['x-access-token'];
+  if (cartToken === '') {
     const sql = `
     insert into "carts"
          values (default)
@@ -86,7 +84,7 @@ app.post('/api/cartItems', (req, res, next) => {
       })
       .then(response => {
         const newCartId = response.payload.cartId;
-        const token = response.token;
+        const newToken = response.token;
         const sql = `
     insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
          values ($1, $2, $3, $4)
@@ -96,11 +94,13 @@ app.post('/api/cartItems', (req, res, next) => {
         db.query(sql, params)
           .then(result => {
             const cartDetails = result.rows[0];
-            res.status(200).json({ cartDetails, token });
+            res.status(200).json({ cartDetails, newToken });
           })
           .catch(err => next(err));
       });
   } else {
+    const payload = jwt.verify(cartToken, process.env.TOKEN_SECRET);
+    const cartId = payload.cartId;
     const sqlCart = `
       select "productId",
              "customizations",

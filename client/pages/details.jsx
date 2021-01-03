@@ -5,7 +5,7 @@ export default class Details extends React.Component {
     super(props);
     this.state = {
       currentProduct: null,
-      token: null,
+      token: '',
       customizations: {
         name: '',
         date: '',
@@ -29,7 +29,6 @@ export default class Details extends React.Component {
     if (inputId === 'custom-select-brand') {
       newState.customizations.brand = event.target.value;
       this.setState(newState);
-      console.log('newState', newState);
     } else if (inputId === 'custom-request-brand') {
       newState.customizations.custom = event.target.value;
       this.setState(newState);
@@ -39,29 +38,57 @@ export default class Details extends React.Component {
     } else if (inputId === 'custom-request-date') {
       newState.customizations.date = event.target.value;
       this.setState(newState);
-      console.log(event.target.id);
     } else if (inputId === 'custom-request-custom') {
       newState.customizations.custom = event.target.value;
       this.setState(newState);
     } else if (inputId === 'qty-select-custom') {
-
+      newState.quantity = event.target.value;
+      this.setState(newState);
+    } else if (inputId === 'qty-select-brand') {
+      newState.quantity = event.target.value;
+      this.setState(newState);
+    } else if (inputId === 'qty-select-name-date') {
+      newState.quantity = event.target.value;
+      this.setState(newState);
+    } else if (inputId === 'custom-request-name-date') {
+      newState.customizations.custom = event.target.value;
+      this.setState(newState);
     }
   }
 
   handleSubmit() {
+    const emptyObject = {};
+    const newState = Object.assign(this.state, emptyObject);
+    const addToCart = {
+      productId: this.state.currentProduct.productId,
+      customizations: this.state.customizations,
+      quantity: this.state.quantity
+    };
     event.preventDefault();
-    console.log(event.target);
-    // fetch('api/cartItems', {
-    //   method: 'post',
-    //   body: formData,
-    //   headers: {
-    //     'x-access-token': this.state.token
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then(res => console.log(res))
-    //   // .then(() => event.target.reset())
-    //   .catch(err => console.error('Error:', err.message));
+    fetch('api/cartItems', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': this.state.token
+      },
+      body: JSON.stringify(addToCart)
+    })
+      .then(res => res.json())
+      .then(res => {
+        newState.token = res.newToken;
+        this.setState(newState);
+      })
+      .then(() => {
+        const emptyObject = {};
+        const clearState = Object.assign(this.state, emptyObject);
+        clearState.customizations.name = '';
+        clearState.customizations.date = '';
+        clearState.customizations.custom = '';
+        clearState.customizations.brand = '';
+        clearState.quantity = 0;
+        this.setState(clearState);
+      })
+      .catch(err => console.error('Error:', err.message));
   }
 
   getProduct() {
@@ -83,7 +110,7 @@ export default class Details extends React.Component {
             <label htmlFor='custom-request-custom' className='custom-request'>
               Please enter any custom details:
             </label>
-            <textarea onChange={this.handleChange} className='shadow' cols='37' rows='3' type='text' id='custom-reqest-custom' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
+            <textarea onChange={this.handleChange} value={this.state.customizations.custom} className='shadow' cols='37' rows='3' type='text' id='custom-request-custom' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
           </div>
           <div className='row d-flex justify-content-around align-items-center'>
             <div className="input-group col-4">
@@ -144,16 +171,16 @@ export default class Details extends React.Component {
           </label>
             <div className='custom-name-date-input d-flex justify-content-between'>
               <div className="input-group input-group-sm mb-3 pl-0 col-6">
-                <input onChange={this.handleChange} type="text" className="form-control shadow" id='custom-request-name' placeholder='Name' aria-label="Input for name" aria-describedby="inputGroup-sizing-sm" />
+                <input onChange={this.handleChange} value={this.state.customizations.name} type="text" className="form-control shadow" id='custom-request-name' placeholder='Name' aria-label="Input for name" aria-describedby="inputGroup-sizing-sm" />
               </div>
               <div className="input-group input-group-sm mb-3 pr-0 col-6 ">
-                <input onChange={this.handleChange} type="text" className="form-control shadow" id='custom-request-date' placeholder='Date' aria-label="Input for date" aria-describedby="inputGroup-sizing-sm" />
+                <input onChange={this.handleChange} value={this.state.customizations.date} type="text" className="form-control shadow" id='custom-request-date' placeholder='Date' aria-label="Input for date" aria-describedby="inputGroup-sizing-sm" />
               </div>
             </div>
             <label htmlFor='custom-request-name-date' className='custom-request'>
               Please enter any custom details:
             </label>
-            <textarea onChange={this.handleChange} className='shadow' cols='37' rows='3' type='text' id='custom-reqest-name-date' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
+            <textarea onChange={this.handleChange} value={this.state.customizations.custom} className='shadow' cols='37' rows='3' type='text' id='custom-request-name-date' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
           </div>
           <div className='row d-flex justify-content-around align-items-center'>
             <div className="input-group col-4">
