@@ -10,10 +10,7 @@ function equal(first, second) {
     length = firstLength;
   }
   for (let i = 0; i < length; i++) {
-    console.log('first', first[i]);
-    console.log('second', second[i]);
     if (first[i] !== second[i]) {
-      console.log('first !== second', false);
       return false;
     }
   }

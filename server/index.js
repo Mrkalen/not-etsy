@@ -101,7 +101,6 @@ app.post('/api/cartItems', (req, res, next) => {
   } else {
     const payload = jwt.verify(cartToken, process.env.TOKEN_SECRET);
     const cartId = payload.cartId;
-    console.log('cartId', cartId);
     const sqlCart = `
       select "productId",
              "customizations",
@@ -113,18 +112,13 @@ app.post('/api/cartItems', (req, res, next) => {
     const params = [productId];
     db.query(sqlCart, params)
       .then(result => {
-        console.log('type of customizations', customizations);
         const newItem = Object.values(customizations);
-        console.log('newItem:', newItem);
         const numQuantity = JSON.parse(quantity);
         for (let i = 0; i < result.rows.length; i++) {
           const cartItemId = result.rows[i].cartItemsId;
           const cartQuantity = result.rows[i].quantity;
           const cartItem = Object.values(result.rows[i].customizations);
-          console.log('cartItem', cartItem);
           if (equal(cartItem, newItem)) {
-            console.log('cart item and new item were the same');
-            console.log('cartItemId,', cartItemId);
             const newQuantity = numQuantity + cartQuantity;
             const sqlItem = `
               update "cartItems"
