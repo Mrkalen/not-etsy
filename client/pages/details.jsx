@@ -5,7 +5,6 @@ export default class Details extends React.Component {
     super(props);
     this.state = {
       currentProduct: null,
-      token: '',
       customizations: {
         name: '',
         date: '',
@@ -57,26 +56,30 @@ export default class Details extends React.Component {
   }
 
   handleSubmit() {
-    const emptyObject = {};
-    const newState = Object.assign(this.state, emptyObject);
+    event.preventDefault();
     const addToCart = {
       productId: this.state.currentProduct.productId,
       customizations: this.state.customizations,
       quantity: this.state.quantity
     };
-    event.preventDefault();
+    const storedCartToken = localStorage.getItem('cart-token-storage');
+    console.log('stored cart token:', storedCartToken);
     fetch('api/cartItems', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': this.state.token
+        'x-access-token': storedCartToken
       },
       body: JSON.stringify(addToCart)
     })
       .then(res => res.json())
       .then(res => {
-        newState.token = res.newToken;
-        this.setState(newState);
+        const cartTokenStorage = JSON.stringify(res.newToken);
+        console.log('cart token to storage', typeof cartTokenStorage);
+        if (cartTokenStorage !== undefined) {
+          localStorage.setItem('cart-token-storage', cartTokenStorage);
+        }
+
       })
       .then(() => {
         const emptyObject = {};
@@ -84,7 +87,7 @@ export default class Details extends React.Component {
         clearState.customizations.name = '';
         clearState.customizations.date = '';
         clearState.customizations.custom = '';
-        clearState.customizations.brand = '';
+        clearState.customizations.brand = 'Team Name';
         clearState.quantity = 0;
         this.setState(clearState);
       })

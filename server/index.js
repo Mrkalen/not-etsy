@@ -69,7 +69,9 @@ app.post('/api/cartItems', (req, res, next) => {
     throw new ClientError(400, 'quantity and productId need to be positive integers.');
   }
   const cartToken = req.headers['x-access-token'];
-  if (cartToken === '') {
+  console.log('token from client', cartToken);
+  if (cartToken === 'undefined') {
+    console.log('cart token undefined');
     const sql = `
     insert into "carts"
          values (default)
@@ -99,6 +101,7 @@ app.post('/api/cartItems', (req, res, next) => {
           .catch(err => next(err));
       });
   } else {
+    console.log('cart token server', cartToken);
     const payload = jwt.verify(cartToken, process.env.TOKEN_SECRET);
     const cartId = payload.cartId;
     const sqlCart = `
