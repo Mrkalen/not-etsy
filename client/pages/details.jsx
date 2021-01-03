@@ -11,7 +11,7 @@ export default class Details extends React.Component {
         custom: '',
         brand: ''
       },
-      quantity: null
+      quantity: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -91,8 +91,8 @@ export default class Details extends React.Component {
         clearState.customizations.name = '';
         clearState.customizations.date = '';
         clearState.customizations.custom = '';
-        clearState.customizations.brand = 'Team Name';
-        clearState.quantity = 0;
+        clearState.customizations.brand = '';
+        clearState.quantity = '';
         this.setState(clearState);
       })
       .catch(err => console.error('Error:', err.message));
@@ -121,16 +121,16 @@ export default class Details extends React.Component {
           </div>
           <div className='row d-flex justify-content-around align-items-center'>
             <div className="input-group col-4">
-              <select onChange={this.handleChange} required className="custom-select shadow pr-3 qty" id="qty-select-custom" aria-label="Example select with button addon">
-                <option default>QTY</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+              <select onChange={this.handleChange} value={this.state.quantity} required className="custom-select shadow pr-3 qty" id="qty-select-custom" aria-label="Example select with button addon">
+                <option defaultValue value=''>QTY</option>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
               </select>
             </div>
-            <button type="submit" className="btn btn-primary col-4 p-0 shadow">Add to cart</button>
+            <button type="submit" className="btn btn-primary col-4 p-0 shadow cart">Add to cart</button>
           </div>
         </form>
       );
@@ -139,8 +139,8 @@ export default class Details extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div className='text-left m-3'>
             <div className="input-group mb-2 w-50 mx-auto">
-              <select onChange={this.handleChange} required className="custom-select team-name shadow" id="custom-select-brand">
-                <option defaultValue>Team Name</option>
+              <select onChange={this.handleChange} value={this.state.customizations.brand} required className="custom-select team-name shadow" id="custom-select-brand">
+                <option defaultValue value=''>Team Name</option>
                 <option value="rams">Ram&apos;s</option>
                 <option value="chargers">Chargers</option>
                 <option value="raiders">Raiders</option>
@@ -155,8 +155,8 @@ export default class Details extends React.Component {
             <textarea onChange={this.handleChange} value={this.state.customizations.custom} className="shadow" cols='37' rows='3' type='text' id='custom-request-brand' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
             <div className='row d-flex justify-content-around align-items-center'>
               <div className="input-group col-4">
-                <select onChange={this.handleChange} className="custom-select shadow pr-3 qty" id="qty-select-brand" aria-label="Example select with button addon">
-                  <option default>QTY</option>
+                <select onChange={this.handleChange} value={this.state.quantity} className="custom-select shadow pr-3 qty" id="qty-select-brand" aria-label="Example select with button addon">
+                  <option defaultValue value=''>QTY</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -164,7 +164,7 @@ export default class Details extends React.Component {
                   <option value="5">5</option>
                 </select>
               </div>
-            <button type="submit" className="btn btn-primary col-4 p-0 shadow">Add to cart</button>
+            <button type="submit" className="btn btn-primary col-4 p-0 shadow cart">Add to cart</button>
             </div>
           </div>
         </form>
@@ -191,8 +191,8 @@ export default class Details extends React.Component {
           </div>
           <div className='row d-flex justify-content-around align-items-center'>
             <div className="input-group col-4">
-              <select onChange={this.handleChange} className="custom-select shadow pr-3 qty" id="qty-select-name-date" aria-label="Quantity select for items with name and date">
-                <option default>QTY</option>
+              <select onChange={this.handleChange} value={this.state.quantity} className="custom-select shadow pr-3 qty" id="qty-select-name-date" aria-label="Quantity select for items with name and date">
+                <option defaultValue value=''>QTY</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -200,7 +200,7 @@ export default class Details extends React.Component {
                 <option value="5">5</option>
               </select>
             </div>
-          <button type="submit" className="btn btn-primary col-4 p-0 shadow">Add to cart</button>
+          <button type="submit" className="btn btn-primary col-4 p-0 shadow cart">Add to cart</button>
           </div>
         </form>
       );
