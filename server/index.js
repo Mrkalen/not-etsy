@@ -69,9 +69,7 @@ app.post('/api/cartItems', (req, res, next) => {
     throw new ClientError(400, 'quantity and productId need to be positive integers.');
   }
   const cartToken = req.headers['x-access-token'];
-  console.log('token from client', cartToken);
-  if (cartToken === 'undefined') {
-    console.log('cart token undefined');
+  if (cartToken === 'null') {
     const sql = `
     insert into "carts"
          values (default)
@@ -101,9 +99,9 @@ app.post('/api/cartItems', (req, res, next) => {
           .catch(err => next(err));
       });
   } else {
-    console.log('cart token server', cartToken);
     const payload = jwt.verify(cartToken, process.env.TOKEN_SECRET);
     const cartId = payload.cartId;
+    console.log('cartId', cartId);
     const sqlCart = `
       select "productId",
              "customizations",
@@ -115,14 +113,18 @@ app.post('/api/cartItems', (req, res, next) => {
     const params = [productId];
     db.query(sqlCart, params)
       .then(result => {
-        const newItemParsed = JSON.parse(customizations);
-        const newItem = Object.values(newItemParsed);
+        console.log('type of customizations', customizations);
+        const newItem = Object.values(customizations);
+        console.log('newItem:', newItem);
         const numQuantity = JSON.parse(quantity);
         for (let i = 0; i < result.rows.length; i++) {
           const cartItemId = result.rows[i].cartItemsId;
           const cartQuantity = result.rows[i].quantity;
           const cartItem = Object.values(result.rows[i].customizations);
+          console.log('cartItem', cartItem);
           if (equal(cartItem, newItem)) {
+            console.log('cart item and new item were the same');
+            console.log('cartItemId,', cartItemId);
             const newQuantity = numQuantity + cartQuantity;
             const sqlItem = `
               update "cartItems"

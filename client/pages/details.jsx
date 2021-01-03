@@ -63,19 +63,23 @@ export default class Details extends React.Component {
       quantity: this.state.quantity
     };
     const storedCartToken = localStorage.getItem('cart-token-storage');
-    console.log('stored cart token:', storedCartToken);
+    let clientToken = '';
+    if (typeof storedCartToken !== 'string') {
+      clientToken = null;
+    } else {
+      clientToken = storedCartToken;
+    }
     fetch('api/cartItems', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': storedCartToken
+        'x-access-token': clientToken
       },
       body: JSON.stringify(addToCart)
     })
       .then(res => res.json())
       .then(res => {
-        const cartTokenStorage = JSON.stringify(res.newToken);
-        console.log('cart token to storage', typeof cartTokenStorage);
+        const cartTokenStorage = (res.newToken);
         if (cartTokenStorage !== undefined) {
           localStorage.setItem('cart-token-storage', cartTokenStorage);
         }
