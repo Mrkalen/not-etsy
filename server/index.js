@@ -82,7 +82,7 @@ app.post('/api/cartItems', (req, res, next) => {
          values (default)
       returning *
       `;
-        db.query(sql)
+        return db.query(sql)
           .then(result => {
             const payload = { cartId: result.rows[0].cartId };
             const token = jwt.sign(payload, process.env.TOKEN_SECRET);

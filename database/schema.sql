@@ -46,7 +46,7 @@ CREATE TABLE "cartItems" (
 	"cartItemsId" serial NOT NULL,
 	"cartId" int,
 	"productId" int NOT NULL,
-	"customizations" json NOT NULL,
+	"customizations" jsonb NOT NULL,
 	"quantity" int NOT NULL,
 	CONSTRAINT "CartItems_pk" PRIMARY KEY ("cartItemsId")
 ) WITH (
