@@ -4,6 +4,7 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
+const jwt = require('jsonwebtoken');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL
@@ -11,12 +12,16 @@ const db = new pg.Pool({
 
 const app = express();
 
+const jsonMiddleware = express.json();
+
+app.use(jsonMiddleware);
+
 app.use(staticMiddleware);
 
 app.get('/api/products', (req, res, next) => {
   const sql = `
   select *
-    from products
+    from "products"
   order by "productId" desc;
     `;
   db.query(sql)
@@ -28,7 +33,7 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:productId', (req, res, next) => {
   const productId = parseInt(req.params.productId, 10);
-  if (!productId) {
+  if (!Number.isInteger(productId)) {
     throw new ClientError(400, 'productId must be a positive Integer');
   }
   const sql = `
@@ -51,6 +56,78 @@ app.get('/api/products/:productId', (req, res, next) => {
       res.json(result.rows[0]);
     })
     .catch(err => next(err));
+});
+
+app.post('/api/cartItems', (req, res, next) => {
+  const { productId, customizations, quantity } = req.body;
+  const qtyNum = parseInt(quantity, 10);
+  const prodNum = parseInt(productId, 10);
+  if (!productId) {
+    throw new ClientError(400, 'productId, customizations, and quantity are required.');
+  } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum)) {
+    throw new ClientError(400, 'quantity and productId need to be positive integers.');
+  }
+  const cartToken = req.headers['x-access-token'];
+  Promise
+    .resolve()
+    .then(() => {
+      if (cartToken !== 'null') {
+        const payload = jwt.verify(cartToken, process.env.TOKEN_SECRET);
+        const cartIdAndToken = { cartId: payload.cartId, token: cartToken };
+        return cartIdAndToken;
+      } else {
+        const sql = `
+    insert into "carts"
+         values (default)
+      returning *
+      `;
+        return db.query(sql)
+          .then(result => {
+            const payload = { cartId: result.rows[0].cartId };
+            const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+            const cartIdAndToken = { cartId: payload.cartId, token: token };
+            return cartIdAndToken;
+          });
+      }
+    })
+    .then(cartIdAndToken => {
+      const { cartId, token } = cartIdAndToken;
+      const sqlItem = `
+              update "cartItems"
+                 set "quantity" = ("quantity" + $1)
+               where "cartId" = $2
+                 and "productId" = $3
+                 and "customizations" @> $4::jsonb
+                 and "customizations" <@ $4::jsonb
+           returning *;
+              `;
+      const params = [quantity, cartId, productId, customizations];
+      return db.query(sqlItem, params)
+        .then(res => {
+          const cartItem = res.rows[0];
+          if (cartItem) {
+            return ({ cartItem, token });
+          } else {
+            const sqlNewItem = `
+      insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
+           values ($1, $2, $3, $4)
+        returning *;
+        `;
+            const params = [productId, customizations, quantity, cartId];
+            return db.query(sqlNewItem, params)
+              .then(res => {
+                const cartItem = res.rows[0];
+                return ({ cartItem, token });
+              });
+          }
+        });
+    })
+    .then(cartItemAndToken => {
+      const { cartItem, token } = cartItemAndToken;
+      res.status(200).json({ cartItem, token });
+    })
+    .catch(err => next(err));
+
 });
 
 app.use(errorMiddleware);

@@ -1,4 +1,7 @@
 import React from 'react';
+import BrandForm from '../brand-form';
+import CustomForm from '../custom-form';
+import NameDateForm from '../name-date-form';
 
 export default class Details extends React.Component {
   constructor(props) {
@@ -26,52 +29,15 @@ export default class Details extends React.Component {
     const { customizationId } = this.state.currentProduct;
     if (customizationId === 4) {
       return (
-        <div className='text-left m-3'>
-          <label htmlFor='custom-request' className='custom-request'>
-            Please enter any custom details:
-            </label>
-          <textarea className='shadow' cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
-        </div>
+      <CustomForm product={this.state.currentProduct} />
       );
     } else if (customizationId === 3) {
       return (
-        <div className='text-left m-3'>
-          <div className="input-group mb-2 w-50 mx-auto">
-            <select required className="custom-select team-name shadow" id="inputGroupSelect01">
-              <option defaultValue>Team Name</option>
-              <option value="1">Ram&apos;s</option>
-              <option value="2">Chargers</option>
-              <option value="3">Raiders</option>
-              <option value="4">49ers</option>
-              <option value="5">Seahawks</option>
-              <option value="6">Dolphins</option>
-            </select>
-          </div>
-          <label htmlFor='custom-request' className='custom-request'>
-            Please enter any custom details:
-            </label>
-          <textarea className="shadow" cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
-        </div>
+        <BrandForm product={this.state.currentProduct} />
       );
     } else if (customizationId === 2) {
       return (
-        <div className='text-left m-3'>
-          <label htmlFor='custom-name-date' className='custom-name-date'>
-            Please enter your last name and a special date:
-          </label>
-          <div className='custom-name-date-input d-flex justify-content-between'>
-            <div className="input-group input-group-sm mb-3 pl-0 col-6">
-              <input type="text" className="form-control shadow" placeholder='Name' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
-            </div>
-            <div className="input-group input-group-sm mb-3 pr-0 col-6 ">
-              <input type="text" className="form-control shadow" placeholder='Date' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
-            </div>
-          </div>
-          <label htmlFor='custom-request' className='custom-request'>
-            Please enter any custom details:
-            </label>
-          <textarea className='shadow' cols='37' rows='3' type='text' id='custom-reqest' name='custom-request' placeholder='Color, name, phrase, ...'></textarea>
-        </div>
+        <NameDateForm product={this.state.currentProduct} />
       );
     }
   }

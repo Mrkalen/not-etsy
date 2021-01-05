@@ -22,7 +22,7 @@ values (
         ),
        (
         'In this house',
-        'Made from the finest pallets the McDonalds down the stree was throwing away. Aged by yours truly with old paint I found in my garage.',
+        'Made from the finest pallets the McDonalds down the street was throwing away. Aged by yours truly with old paint I found in my garage.',
         5.00,
         '/images/custom-this-house-team.jpg',
         3,
