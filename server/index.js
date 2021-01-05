@@ -5,7 +5,6 @@ const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
 const jwt = require('jsonwebtoken');
-const equal = require('./lib/equal');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL
@@ -93,52 +92,35 @@ app.post('/api/cartItems', (req, res, next) => {
     })
     .then(cartIdAndToken => {
       const { cartId, token } = cartIdAndToken;
-      const sqlCart = `
-      select "productId",
-             "customizations",
-             "cartItemsId",
-             "quantity"
-        from "cartItems"
-       where "productId" = $1;
-       `;
-      const params = [productId];
-      return db.query(sqlCart, params)
-        .then(result => {
-          const newItem = Object.values(customizations);
-          const numQuantity = JSON.parse(quantity);
-          for (let i = 0; i < result.rows.length; i++) {
-            const cartItemId = result.rows[i].cartItemsId;
-            const cartQuantity = result.rows[i].quantity;
-            const cartItem = Object.values(result.rows[i].customizations);
-            if (equal(cartItem, newItem)) {
-              const newQuantity = numQuantity + cartQuantity;
-              const sqlItem = `
+      const sqlItem = `
               update "cartItems"
-                 set "quantity" = $1
-               where "cartItemsId" = $2
-               returning *;
+                 set "quantity" = ("quantity" + $1)
+               where "cartId" = $2
+                 and "productId" = $3
+                 and "customizations" @> $4::jsonb
+                 and "customizations" <@ $4::jsonb
+           returning *;
               `;
-              const params = [newQuantity, cartItemId];
-              return db.query(sqlItem, params)
-                .then(res => {
-                  const cartItem = res.rows[0];
-                  return ({ cartItem, token });
-                });
-            }
+      const params = [quantity, cartId, productId, customizations];
+      return db.query(sqlItem, params)
+        .then(res => {
+          const cartItem = res.rows[0];
+          if (cartItem) {
+            return ({ cartItem, token });
+          } else {
+            const sqlNewItem = `
+      insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
+           values ($1, $2, $3, $4)
+        returning *;
+        `;
+            const params = [productId, customizations, quantity, cartId];
+            return db.query(sqlNewItem, params)
+              .then(res => {
+                const cartItem = res.rows[0];
+                return ({ cartItem, token });
+              });
           }
-          const sqlNewItem = `
-          insert into "cartItems" ("productId", "customizations", "quantity", "cartId")
-               values ($1, $2, $3, $4)
-            returning *;
-            `;
-          const params = [productId, customizations, quantity, cartId];
-          return db.query(sqlNewItem, params)
-            .then(res => {
-              const cartItem = res.rows[0];
-              return ({ cartItem, token });
-            });
         });
-
     })
     .then(cartItemAndToken => {
       const { cartItem, token } = cartItemAndToken;

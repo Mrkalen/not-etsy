@@ -52,8 +52,7 @@ export default class NameDateForm extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.log('res', res);
-        const cartTokenStorage = (res.newToken);
+        const cartTokenStorage = (res.token);
         if (cartTokenStorage !== undefined) {
           localStorage.setItem('cart-token-storage', cartTokenStorage);
         }
