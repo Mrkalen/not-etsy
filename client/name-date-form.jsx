@@ -61,7 +61,7 @@ export default class NameDateForm extends React.Component {
       .then(() => {
         const newState = {
           quantity: '',
-          cusotmizations: {
+          customizations: {
             name: '',
             date: '',
             custom: '',

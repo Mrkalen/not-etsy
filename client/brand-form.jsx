@@ -62,7 +62,7 @@ export default class BrandForm extends React.Component {
       .then(() => {
         const newState = {
           quantity: '',
-          cusotmizations: {
+          customizations: {
             name: '',
             date: '',
             custom: '',

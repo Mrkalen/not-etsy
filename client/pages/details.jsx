@@ -7,100 +7,13 @@ export default class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: null,
-      quantity: '',
-      customizations: {
-        name: '',
-        date: '',
-        custom: '',
-        brand: ''
-      }
+      currentProduct: null
     };
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.getProduct();
   }
-
-  // handleChange() {
-  //   const inputId = event.target.id;
-  //   const newState = Object.assign({}, this.state);
-  //   if (inputId === 'custom-select-brand') {
-  //     newState.customizations.brand = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'custom-request-brand') {
-  //     newState.customizations.custom = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'custom-request-name') {
-  //     newState.customizations.name = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'custom-request-date') {
-  //     newState.customizations.date = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'custom-request-custom') {
-  //     newState.customizations.custom = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'qty-select-custom') {
-  //     newState.quantity = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'qty-select-brand') {
-  //     newState.quantity = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'qty-select-name-date') {
-  //     newState.quantity = event.target.value;
-  //     this.setState(newState);
-  //   } else if (inputId === 'custom-request-name-date') {
-  //     newState.customizations.custom = event.target.value;
-  //     this.setState(newState);
-  //   }
-  // }
-
-  // handleSubmit() {
-  //   event.preventDefault();
-  //   const addToCart = {
-  //     productId: this.state.currentProduct.productId,
-  //     customizations: this.state.customizations,
-  //     quantity: this.state.quantity
-  //   };
-  //   const storedCartToken = localStorage.getItem('cart-token-storage');
-  //   let clientToken = '';
-  //   if (typeof storedCartToken !== 'string') {
-  //     clientToken = null;
-  //   } else {
-  //     clientToken = storedCartToken;
-  //   }
-  //   fetch('api/cartItems', {
-  //     method: 'post',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'x-access-token': clientToken
-  //     },
-  //     body: JSON.stringify(addToCart)
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       const cartTokenStorage = (res.newToken);
-  //       if (cartTokenStorage !== undefined) {
-  //         localStorage.setItem('cart-token-storage', cartTokenStorage);
-  //       }
-
-  //     })
-  //     .then(() => {
-  //       const newState = {
-  //         quantity: '',
-  //         cusotmizations: {
-  //           name: '',
-  //           date: '',
-  //           custom: '',
-  //           brand: ''
-  //         }
-  //       };
-  //       this.setState(newState);
-  //     })
-  //     .catch(err => console.error('Error:', err.message));
-  // }
 
   getProduct() {
     const prodId = this.props.prodId;
