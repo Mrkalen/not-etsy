@@ -9,8 +9,11 @@ export default class Header extends React.Component {
         <div>
           <h1 className='title'>Penguin Masterpieces</h1>
         </div>
-        <div className="container nav">
-      </div>
+        <nav className="nav header-nav">
+          <a className="nav-link active" aria-current="page" href="#cart">
+            <i className="fas fa-shopping-cart"></i>
+          </a>
+        </nav>
       </div>
     );
   }

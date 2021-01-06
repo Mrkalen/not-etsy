@@ -3,6 +3,7 @@ import Header from './header';
 import NewItems from './pages/new-items';
 import parseRoute from './lib/parse-route';
 import Details from './pages/details';
+import Cart from './pages/cart';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -33,6 +34,10 @@ export default class App extends React.Component {
     } else if (route.path === 'details') {
       return (
         <Details prodId={prodId} />
+      );
+    } else if (route.path === 'cart') {
+      return (
+        <Cart />
       );
     }
   }

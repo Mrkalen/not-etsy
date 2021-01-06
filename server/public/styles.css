@@ -5,6 +5,7 @@ body {
 i {
   font-size: 1.25rem;
   filter: drop-shadow(3px 3px 2px grey);
+  color: #66acad;
 }
 
 textarea {
@@ -26,8 +27,7 @@ textarea {
   text-align: center;
 }
 
-.container.nav {
-  padding: 1rem;
+.header-nav {
   background-color: #c5f9fa;
 }
 
