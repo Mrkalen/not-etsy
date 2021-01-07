@@ -4,7 +4,6 @@ body {
 
 i {
   font-size: 1.25rem;
-  filter: drop-shadow(3px 3px 2px grey);
   color: #66acad;
 }
 
@@ -63,4 +62,27 @@ textarea {
   background-color: #c5f9fa;
   border-color: #c5f9fa;
   color: black;
+}
+
+.customizations-title {
+  font-size: 14px;
+}
+
+.custom-request,
+.customization,
+.quantity-update,
+.update {
+  font-size: 12px;
+}
+
+.customization {
+  color: #3d3d3d;
+}
+
+.qty-update {
+  font-size: 10px;
+}
+
+i.update-symbol {
+  font-size: 1rem;
 }
