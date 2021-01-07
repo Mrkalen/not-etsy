@@ -25,7 +25,7 @@ export default class App extends React.Component {
   renderPage() {
     const prodId = this.state.route.params.get('productId');
     const { route } = this.state;
-    if (route.path === '') {
+    if (route.path === 'new-items') {
       return (
         <div className='row'>
           { <NewItems />}

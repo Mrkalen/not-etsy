@@ -72,7 +72,8 @@ textarea {
 .customization,
 .quantity-update,
 .update,
-.brand {
+.brand,
+.name-date {
   font-size: 12px;
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomCard from '../custom-card';
 import BrandCard from '../brand-card';
+import NameDateCard from '../name-date-card';
 
 function CartItems(props) {
   const customizationId = props.product.customizationId;
@@ -9,6 +10,8 @@ function CartItems(props) {
     item = <CustomCard product={props.product}/>;
   } else if (customizationId === 3) {
     item = <BrandCard product={props.product} />;
+  } else if (customizationId === 2) {
+    item = <NameDateCard product ={props.product} />;
   }
   return (
     <div className='card'>

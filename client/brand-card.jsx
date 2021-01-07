@@ -11,7 +11,7 @@ export default class BrandCard extends React.Component {
           <div className="card-header text-left pl-2">
             {productName}
           </div>
-          <div className="card-body d-flex p-0">
+          <div className="card-body d-flex pr-1 py-0 justify-content-between">
             <div className='col-4 p-0'>
               <img src={pictureUrl} className='img-fluid' alt={description}></img>
             </div>
