@@ -49,7 +49,7 @@ export default class BrandCard extends React.Component {
               </div>
             </div>
           </div>
-          <div className="card-footer text-muted p-2 d-flex justify-content-between">
+          <div className="card-footer p-2 d-flex justify-content-between">
             <p className='price text-left m-0'>{`Price $${price}.00 x Quantity ${quantity} `}</p>
             <p className='total text-right m-0'>{`Total: $${price * quantity}.00`}</p>
           </div>
