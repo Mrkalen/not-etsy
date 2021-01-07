@@ -4,7 +4,7 @@ export default class BrandCard extends React.Component {
 
   render() {
     const { pictureUrl, productName, customizations, price, quantity, description } = this.props.product;
-    const { custom, brand } = customizations;
+    const { custom, name, date } = customizations;
     return (
       <>
         <div className="card">
@@ -17,7 +17,10 @@ export default class BrandCard extends React.Component {
             </div>
             <div className='col-4 pl-2 pr-0 pt-2 customizations text-left'>
               <p className='customizations-title m-0'>Customizations</p>
-              <p className='brand m-0'>{`Brand: ${brand}`}</p>
+              <div className='name-date d-flex'>
+                <p>{`Name: ${name}`}</p>
+                <p>{`Date: ${date}`}</p>
+              </div>
               <p className='custom-request m-0'>Custom Request:</p>
               <p className='customization m-0 p-1'>{custom}</p>
             </div>

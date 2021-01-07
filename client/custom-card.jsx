@@ -15,7 +15,7 @@ export default class CustomCard extends React.Component {
             <div className='col-4 p-0'>
               <img src={pictureUrl} className='img-fluid' alt={description}></img>
             </div>
-            <div className='col-4 pl-2 pr-0 customizations text-left'>
+            <div className='col-4 pl-2 pr-0 pt-2 customizations text-left'>
               <p className='customizations-title m-0'>Customizations</p>
               <p className='custom-request m-0'>Custom Request:</p>
               <p className='customization m-0 p-1'>{customRequest}</p>

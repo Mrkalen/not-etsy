@@ -71,7 +71,8 @@ textarea {
 .custom-request,
 .customization,
 .quantity-update,
-.update {
+.update,
+.brand {
   font-size: 12px;
 }
 
