@@ -124,7 +124,7 @@ app.post('/api/cartItems', (req, res, next) => {
     })
     .then(cartItemAndToken => {
       const { cartItem, token } = cartItemAndToken;
-      res.status(200).json({ cartItem, token });
+      res.status(201).json({ cartItem, token });
     })
     .catch(err => next(err));
 
@@ -149,6 +149,36 @@ app.get('/api/cartItems', (req, res, next) => {
     .then(result => {
       const cartItems = result.rows;
       res.status(200).json(cartItems);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/cartItems/quantity', (req, res, next) => {
+  const { quantity, productId, cartItemsId } = req.body;
+  const qtyNum = parseInt(quantity, 10);
+  const prodNum = parseInt(productId, 10);
+  if (!productId || !quantity) {
+    throw new ClientError(400, 'productId and quantity are required.');
+  } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum)) {
+    throw new ClientError(400, 'quantity and productId need to be positive integers.');
+  }
+  const token = req.headers['x-access-token'];
+  const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+  const { cartId } = payload;
+
+  const sql = `
+    update "cartItems"
+       set "quantity" = $1
+     where "cartId" = $2
+       and "cartItemsId" = $3
+       and "productId" = $4
+ returning *;
+ `;
+  const params = [quantity, cartId, cartItemsId, productId];
+  db.query(sql, params)
+    .then(result => {
+      const cartItem = result.rows[0];
+      res.status(201).json(cartItem);
     })
     .catch(err => next(err));
 });
