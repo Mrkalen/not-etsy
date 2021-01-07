@@ -130,6 +130,29 @@ app.post('/api/cartItems', (req, res, next) => {
 
 });
 
+app.get('/api/cartItems', (req, res, next) => {
+  const token = req.headers['x-access-token'];
+  if (!token) {
+    return null;
+  }
+  const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+  const cartId = payload.cartId;
+
+  const sql = `
+    select *
+      from "cartItems"
+      join "products" using ("productId")
+     where "cartId" = $1;
+  `;
+  const params = [cartId];
+  db.query(sql, params)
+    .then(result => {
+      const cartItems = result.rows;
+      res.status(200).json(cartItems);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

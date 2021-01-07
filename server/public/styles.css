@@ -4,7 +4,7 @@ body {
 
 i {
   font-size: 1.25rem;
-  filter: drop-shadow(3px 3px 2px grey);
+  color: #66acad;
 }
 
 textarea {
@@ -26,8 +26,7 @@ textarea {
   text-align: center;
 }
 
-.container.nav {
-  padding: 1rem;
+.header-nav {
   background-color: #c5f9fa;
 }
 
@@ -59,8 +58,27 @@ textarea {
   font-size: 14px;
 }
 
-.cart {
-  background-color: #c5f9fa;
-  border-color: #c5f9fa;
-  color: black;
+.customizations-title {
+  font-size: 14px;
+}
+
+.custom-request,
+.customization,
+.quantity-update,
+.update,
+.brand,
+.name-date {
+  font-size: 12px;
+}
+
+.customization {
+  color: #3d3d3d;
+}
+
+.qty-update {
+  font-size: 10px;
+}
+
+i.update-symbol {
+  font-size: 1rem;
 }
