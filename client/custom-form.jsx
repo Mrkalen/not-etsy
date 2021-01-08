@@ -43,7 +43,7 @@ export default class CustomForm extends React.Component {
     } else {
       clientToken = storedCartToken;
     }
-    fetch('api/cartItems', {
+    fetch('/api/cartItems', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
