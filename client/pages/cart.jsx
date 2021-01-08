@@ -75,9 +75,9 @@ export default class Cart extends React.Component {
       .then(res => {
         const newItem = res;
         const newState = this.state.cartItems.slice();
-        for (let i = 0; i < newState.lenght; i++) {
+        for (let i = 0; i < newState.length; i++) {
           if (newState[i].cartItemsId === newItem.cartItemsId) {
-            newState.cartItems[i].splice(i, 1, newItem);
+            newState.splice(i, 1, newItem);
             this.setState({ cartItems: newState });
             return;
           }
