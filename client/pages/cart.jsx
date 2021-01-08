@@ -3,15 +3,16 @@ import CustomCard from '../custom-card';
 import BrandCard from '../brand-card';
 import NameDateCard from '../name-date-card';
 
-function CartItems(props) {
+function CartItem(props) {
   const customizationId = props.product.customizationId;
+  const updateItem = props.updateItem;
   let item = null;
   if (customizationId === 4) {
-    item = <CustomCard product={props.product}/>;
+    item = <CustomCard product={props.product} updateItem={updateItem}/>;
   } else if (customizationId === 3) {
-    item = <BrandCard product={props.product} />;
+    item = <BrandCard product={props.product} updateItem={updateItem} />;
   } else if (customizationId === 2) {
-    item = <NameDateCard product ={props.product} />;
+    item = <NameDateCard product ={props.product} updateItem={updateItem}/>;
   }
   return (
     <div className='card'>
@@ -29,6 +30,8 @@ export default class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = { cartItems: [] };
+
+    this.updateItem = this.updateItem.bind(this);
   }
 
   componentDidMount() {
@@ -55,13 +58,42 @@ export default class Cart extends React.Component {
       });
   }
 
+  updateItem(product) {
+    const { productId, cartItemsId, quantity } = product;
+    const token = localStorage.getItem('cart-token-storage');
+    const updateQuantity = { quantity, productId, cartItemsId };
+
+    fetch('/api/cartItems/quantity', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token
+      },
+      body: JSON.stringify(updateQuantity)
+    })
+      .then(res => res.json())
+      .then(res => {
+        const newItem = res;
+        const newState = this.state.cartItems.slice();
+        for (let i = 0; i < newState.length; i++) {
+          if (newState[i].cartItemsId === newItem.cartItemsId) {
+            newState.splice(i, 1, newItem);
+            this.setState({ cartItems: newState });
+            return;
+          }
+        }
+      })
+      .catch(err => console.error('Error:', err.message));
+  }
+
   render() {
     return (
       this.state.cartItems.map((product, index) => {
         return (
-      <CartItems
+      <CartItem
           key={index}
           product={product}
+          updateItem={this.updateItem}
       />
         );
       }

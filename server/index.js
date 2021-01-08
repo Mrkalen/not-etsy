@@ -124,7 +124,7 @@ app.post('/api/cartItems', (req, res, next) => {
     })
     .then(cartItemAndToken => {
       const { cartItem, token } = cartItemAndToken;
-      res.status(200).json({ cartItem, token });
+      res.status(201).json({ cartItem, token });
     })
     .catch(err => next(err));
 
@@ -149,6 +149,37 @@ app.get('/api/cartItems', (req, res, next) => {
     .then(result => {
       const cartItems = result.rows;
       res.status(200).json(cartItems);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/cartItems/quantity', (req, res, next) => {
+  const { quantity, productId, cartItemsId } = req.body;
+  const qtyNum = parseInt(quantity, 10);
+  const prodNum = parseInt(productId, 10);
+  const cartNum = parseInt(cartItemsId, 10);
+  if (!productId || !quantity || !cartItemsId) {
+    throw new ClientError(400, 'productId, cartItemsId, and quantity are required.');
+  } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum) || !Number.isInteger(cartNum)) {
+    throw new ClientError(400, 'quantity and productId need to be positive integers.');
+  }
+  const sql = `
+    with "updatedItem" as (
+  update "cartItems"
+     set "quantity" = $1
+   where "cartItemsId" = $2
+  returning *
+   )
+  select *
+    from "updatedItem"
+    join "products" using ("productId")
+ `;
+  const params = [quantity, cartItemsId];
+  db.query(sql, params)
+    .then(result => {
+      // console.log('quantity', result.rows[0].quantity);
+      const cartItem = result.rows[0];
+      res.status(201).json(cartItem);
     })
     .catch(err => next(err));
 });
