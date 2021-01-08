@@ -18,19 +18,11 @@ export default class CustomCard extends React.Component {
   }
 
   handleSubmit() {
+    event.preventDefault();
     const quantity = this.state.quantity;
     const { productId, cartItemsId } = this.props.product;
-    const token = localStorage.getItem('cart-token-storage');
     const updateQuantity = { quantity, productId, cartItemsId };
-
-    fetch('/api/cartItems/quantity', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token
-      },
-      body: JSON.stringify(updateQuantity)
-    });
+    this.props.updateItem(updateQuantity);
   }
 
   render() {

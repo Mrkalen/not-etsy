@@ -157,26 +157,27 @@ app.post('/api/cartItems/quantity', (req, res, next) => {
   const { quantity, productId, cartItemsId } = req.body;
   const qtyNum = parseInt(quantity, 10);
   const prodNum = parseInt(productId, 10);
-  if (!productId || !quantity) {
-    throw new ClientError(400, 'productId and quantity are required.');
-  } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum)) {
+  const cartNum = parseInt(cartItemsId, 10);
+  if (!productId || !quantity || !cartItemsId) {
+    throw new ClientError(400, 'productId, cartItemsId, and quantity are required.');
+  } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum) || !Number.isInteger(cartNum)) {
     throw new ClientError(400, 'quantity and productId need to be positive integers.');
   }
-  const token = req.headers['x-access-token'];
-  const payload = jwt.verify(token, process.env.TOKEN_SECRET);
-  const { cartId } = payload;
-
   const sql = `
-    update "cartItems"
-       set "quantity" = $1
-     where "cartId" = $2
-       and "cartItemsId" = $3
-       and "productId" = $4
- returning *;
+    with "updatedItem" as (
+  update "cartItems"
+     set "quantity" = $1
+   where "cartItemsId" = $2
+  returning *
+   )
+  select *
+    from "updatedItem"
+    join "products" using ("productId")
  `;
-  const params = [quantity, cartId, cartItemsId, productId];
+  const params = [quantity, cartItemsId];
   db.query(sql, params)
     .then(result => {
+      // console.log('quantity', result.rows[0].quantity);
       const cartItem = result.rows[0];
       res.status(201).json(cartItem);
     })

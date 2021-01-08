@@ -18,19 +18,11 @@ export default class BrandCard extends React.Component {
   }
 
   handleSubmit() {
-    const quantity = this.state.quantity;
+    event.preventDefault();
+    const quantity = this.state;
     const { productId, cartItemsId } = this.props.product;
-    const token = localStorage.getItem('cart-token-storage');
     const updateQuantity = { quantity, productId, cartItemsId };
-
-    fetch('/api/cartItems/quantity', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token
-      },
-      body: JSON.stringify(updateQuantity)
-    });
+    this.props.updateItem(updateQuantity);
   }
 
   render() {
