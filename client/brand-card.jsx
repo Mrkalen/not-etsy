@@ -19,10 +19,11 @@ export default class BrandCard extends React.Component {
 
   handleSubmit() {
     event.preventDefault();
-    const quantity = this.state;
+    const quantity = this.state.quantity;
     const { productId, cartItemsId } = this.props.product;
     const updateQuantity = { quantity, productId, cartItemsId };
     this.props.updateItem(updateQuantity);
+    this.setState({ quantity: quantity });
   }
 
   render() {
