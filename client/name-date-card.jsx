@@ -25,6 +25,11 @@ export default class NameDateCard extends React.Component {
     this.props.updateItem(updateQuantity);
   }
 
+  handleClick() {
+    const { cartItemsId } = this.props.product;
+    this.props.deleteItem(cartItemsId);
+  }
+
   render() {
     const { pictureUrl, productName, customizations, price, quantity, description } = this.props.product;
     const { custom, name, date } = customizations;
@@ -69,12 +74,12 @@ export default class NameDateCard extends React.Component {
                   </div>
                 </button>
               </form>
-              <div className='h-50 d-flex align-items-center justify-content-between delete'>
+              <button onClick={this.handleClick} className='h-50 d-flex align-items-center justify-content-between delete'>
                 <p className='m-0 w-100'>Delete</p>
                 <div className='w-100'>
                   <i className="fas fa-trash-alt update-symbol"></i>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
           <div className="card-footer p-2 d-flex justify-content-between">
