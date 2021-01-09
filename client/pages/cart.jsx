@@ -112,18 +112,26 @@ export default class Cart extends React.Component {
   }
 
   render() {
-    return (
-      this.state.cartItems.map((product, index) => {
-        return (
+    if (this.state.cartItems.length === 0) {
+      return (
+        <div>
+          <p className='text-center'>You currently have no items in your cart.</p>
+        </div>
+      );
+    } else {
+      return (
+        this.state.cartItems.map((product, index) => {
+          return (
       <CartItem
           key={index}
           product={product}
           updateItem={this.updateItem}
           deleteItem={this.deleteItem}
       />
-        );
-      }
-      )
-    );
+          );
+        }
+        )
+      );
+    }
   }
 }
