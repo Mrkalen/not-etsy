@@ -92,7 +92,9 @@ export default class NameDateForm extends React.Component {
           <label htmlFor='custom-request-name-date' className='custom-request'>
             Please enter any custom details:
             </label>
-          <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' className='shadow' cols='37' rows='3' type='text' id='custom-request-name-date' placeholder='Color, name, phrase, ...'></textarea>
+          <div className="input-group">
+            <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request-brand' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
+          </div>
         </div>
         <div className='row d-flex justify-content-around align-items-center'>
           <div className="input-group col-4">

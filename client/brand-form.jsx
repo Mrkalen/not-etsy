@@ -92,7 +92,9 @@ export default class BrandForm extends React.Component {
         <label htmlFor='custom-request-brand' className='custom-request'>
           Please enter any custom details:
             </label>
-          <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' className="shadow" cols='37' rows='3' type='text' id='custom-request-brand' placeholder='Color, name, phrase, ...'></textarea>
+          <div className="input-group">
+            <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request-brand' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
+          </div>
         <div className='row d-flex justify-content-around align-items-center'>
           <div className="input-group col-4">
               <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow pr-3 qty" id="qty-select-brand" aria-label="Example select with button addon">
