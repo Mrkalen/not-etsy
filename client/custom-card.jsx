@@ -7,6 +7,7 @@ export default class CustomCard extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange() {
@@ -23,6 +24,11 @@ export default class CustomCard extends React.Component {
     const { productId, cartItemsId } = this.props.product;
     const updateQuantity = { quantity, productId, cartItemsId };
     this.props.updateItem(updateQuantity);
+  }
+
+  handleClick() {
+    const { cartItemsId } = this.props.product;
+    this.props.deleteItem(cartItemsId);
   }
 
   render() {
@@ -65,12 +71,12 @@ export default class CustomCard extends React.Component {
                   </div>
                 </button>
               </form>
-              <div className='h-50 d-flex align-items-center justify-content-between delete'>
+              <button onClick={this.handleClick} className=' btn h-50 d-flex align-items-center justify-content-between delete'>
                 <p className='m-0 w-100'>Delete</p>
                 <div className='w-100'>
                   <i className="fas fa-trash-alt update-symbol"></i>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
           <div className="card-footer p-2 d-flex justify-content-between">
