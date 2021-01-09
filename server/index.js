@@ -180,9 +180,33 @@ app.post('/api/cartItems/quantity', (req, res, next) => {
   const params = [quantity, cartItemsId];
   db.query(sql, params)
     .then(result => {
-      // console.log('quantity', result.rows[0].quantity);
       const cartItem = result.rows[0];
       res.status(201).json(cartItem);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/cartItems/delete', (req, res, next) => {
+  const token = req.headers['x-access-token'];
+  const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+  const { cartId } = payload;
+  const cartItemsId = req.body.cartItemsId;
+  const cartNum = parseInt(cartItemsId, 10);
+  if (!cartItemsId) {
+    throw new ClientError(400, 'cartItemsId is required.');
+  } else if (!Number.isInteger(cartNum)) {
+    throw new ClientError(400, 'cartItemsId needs to be a positive integers.');
+  }
+  const sql = `
+    delete from "cartItems"
+          where "cartItemsId" = $1
+            and "cartId" = $2
+      returning *;
+            `;
+  const params = [cartItemsId, cartId];
+  db.query(sql, params)
+    .then(result => {
+      res.sendStatus(204);
     })
     .catch(err => next(err));
 });

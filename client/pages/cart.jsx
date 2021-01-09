@@ -5,14 +5,14 @@ import NameDateCard from '../name-date-card';
 
 function CartItem(props) {
   const customizationId = props.product.customizationId;
-  const updateItem = props.updateItem;
+  const { updateItem, deleteItem } = props;
   let item = null;
   if (customizationId === 4) {
-    item = <CustomCard product={props.product} updateItem={updateItem}/>;
+    item = <CustomCard product={props.product} updateItem={updateItem} deleteItem={deleteItem}/>;
   } else if (customizationId === 3) {
-    item = <BrandCard product={props.product} updateItem={updateItem} />;
+    item = <BrandCard product={props.product} updateItem={updateItem} deleteItem={deleteItem}/>;
   } else if (customizationId === 2) {
-    item = <NameDateCard product ={props.product} updateItem={updateItem}/>;
+    item = <NameDateCard product={props.product} updateItem={updateItem} deleteItem={deleteItem}/>;
   }
   return (
     <div className='card'>
@@ -32,6 +32,7 @@ export default class Cart extends React.Component {
     this.state = { cartItems: [] };
 
     this.updateItem = this.updateItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +87,30 @@ export default class Cart extends React.Component {
       .catch(err => console.error('Error:', err.message));
   }
 
+  deleteItem(itemId) {
+    const cartItemsId = { cartItemsId: itemId };
+    const token = localStorage.getItem('cart-token-storage');
+
+    fetch('/api/cartItems/delete', {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token
+      },
+      body: JSON.stringify(cartItemsId)
+    })
+      .catch(err => {
+        console.error('Error:', err.message);
+      });
+    const newState = this.state.cartItems.slice();
+    for (let i = 0; i < newState.length; i++) {
+      if (newState[i].cartItemsId === cartItemsId.cartItemsId) {
+        newState.splice(i, 1);
+        this.setState({ cartItems: newState });
+      }
+    }
+  }
+
   render() {
     return (
       this.state.cartItems.map((product, index) => {
@@ -94,6 +119,7 @@ export default class Cart extends React.Component {
           key={index}
           product={product}
           updateItem={this.updateItem}
+          deleteItem={this.deleteItem}
       />
         );
       }
