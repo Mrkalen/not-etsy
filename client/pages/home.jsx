@@ -1,23 +1,5 @@
 import React from 'react';
-
-function NewThumbnails(props) {
-  console.log(props.products);
-  return (
-    props.products.map((product, index) => {
-      return (
-        <>
-          <div className='col-4' key={`product-${props.productId}`}>
-            <a>
-              <img src={product.pictureUrl} className='img-thumbnail img-fluid'></img>
-            </a>
-          </div>
-        </>
-      );
-    }
-
-    )
-  );
-}
+import Thumbnails from '../thumbnails';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -39,11 +21,39 @@ export default class Home extends React.Component {
   render() {
     return (
       <>
-        <div className='carousel-title text-center'>
-          <h2>New Items</h2>
-        </div>
-        <div className='new-items row d-flex align-items-center'>
-          <NewThumbnails products={this.state.products} />
+        <div className='home-items'>
+          <div className='carousel-title text-center'>
+            <a href={'#new-items'}>
+              <h2>New Items</h2>
+            </a>
+          </div>
+          <div className='new-items-thumbnail row d-flex align-items-center'>
+            {this.state.products.map((product, index) => {
+              return (
+              <Thumbnails key={`new-product-${product.productId}`} product={product} name='new' />
+              );
+            })}
+          </div>
+          <div className='carousel-title text-center'>
+            <h2>Ornaments</h2>
+          </div>
+          <div className='ornaments-thumbnail row d-flex align-items-center'>
+            {this.state.products.map((product, index) => {
+              return (
+                <Thumbnails key={`ornament-product-${product.productId}`} product={product} name='ornament' />
+              );
+            })}
+          </div>
+          <div className='carousel-title text-center'>
+            <h2>Wall Decor</h2>
+          </div>
+          <div className='wall-decor-thumbnail row d-flex align-items-center'>
+            {this.state.products.map((product, index) => {
+              return (
+                <Thumbnails key={`wall-decor-product-${product.productId}`} product={product} name='wall-decor' />
+              );
+            })}
+          </div>
         </div>
       </>
     );

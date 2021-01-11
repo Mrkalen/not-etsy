@@ -15,7 +15,10 @@ export default class Header extends React.Component {
               <i className="fas fa-bars"></i>
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a className="dropdown-item" href=''>Home</a>
               <a className="dropdown-item" href="#new-items">New Items</a>
+              <a className="dropdown-item">Ornaments</a>
+              <a className="dropdown-item">Wall Decor</a>
               <a className="dropdown-item" href="#cart">Cart</a>
             </div>
           </div>
