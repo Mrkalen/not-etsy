@@ -65,7 +65,7 @@ app.post('/api/cartItems', (req, res, next) => {
   const { productId, customizations, quantity } = req.body;
   const qtyNum = parseInt(quantity, 10);
   const prodNum = parseInt(productId, 10);
-  if (!productId) {
+  if (!productId || !customizations || !quantity) {
     throw new ClientError(400, 'productId, customizations, and quantity are required.');
   } else if (!Number.isInteger(qtyNum) || !Number.isInteger(prodNum)) {
     throw new ClientError(400, 'quantity and productId need to be positive integers.');
