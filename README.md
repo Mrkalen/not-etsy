@@ -2,11 +2,11 @@
 
 A full stack e-commerce website.
 
-# Live Demo 
+## Live Demo 
 
 [happyhourhomemade](https://happyhourhomemade.herokuapp.com/)
 
-# Technologies used
+## Technologies used
 
   - HTML5
   - CSS3
@@ -19,7 +19,7 @@ A full stack e-commerce website.
   - Webpack 4
   - JSONWebtoken
 
-# Features: 
+## Features: 
 
   - User can view items by new
   - User can view details of an item
@@ -28,9 +28,9 @@ A full stack e-commerce website.
   - User can remove items from their cart
   - User can update quantity in cart
   
-## Development
+# Development
 
-# System Requirements
+## System Requirements
   - Bootstrap 4.5 or higher
   - Express 4 or higher
   - NPM 6 or higher
@@ -39,33 +39,33 @@ A full stack e-commerce website.
   - Postgres
   - React.js
  
- # Getting Started
+ ## Getting Started
  
  1. Clone the repository
- ```
- git clone https://github.com/Mrkalen/not-etsy
- ```
-  2. Make a copy of .env.example
- ```javascript
- cp .env.example .env
- ```
+    ```
+    git clone https://github.com/Mrkalen/not-etsy
+    ```
+ 2. Make a copy of .env.example
+    ```javascript
+    cp .env.example .env
+    ```
  3. Install all dependencies with NPM
- ```javascript
- npm install
- ```
+    ```javascript
+    npm install
+    ```
  4. Confirm postgresql is running
- ```javascript
- sudo service postgresql start
- ```
+    ```javascript
+    sudo service postgresql start
+    ```
  5. Create DataBase
- ```javascript
- createdb not-etsy
- ```
+    ```javascript
+    createdb not-etsy
+    ```
  6. Import database Schema and Data
- ```javascript
- npm run db:import
- ```
+    ```javascript
+    npm run db:import
+    ```
  7. Start Express API server and Webpack Dev Server
- ```javascript
- npm run dev
- ```
+    ```javascript
+    npm run dev
+    ```
