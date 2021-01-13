@@ -7,7 +7,7 @@ export default class Header extends React.Component {
     return (
       <div className='header'>
         <div>
-          <h1 className='title'>Penguin Masterpieces</h1>
+          <h1 className='title'>Happy Hour Homemade</h1>
         </div>
         <nav className="nav header-nav d-flex justify-content-between">
           <div className="dropdown">
