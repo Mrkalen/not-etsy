@@ -67,7 +67,7 @@ values (
         '/images/custom-name-mugs.jpg',
         2,
         4
-        )
+        ),
         (
         'Ornaments with name',
         'Different colored ornaments with a custom print.',
