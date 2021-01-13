@@ -46,26 +46,26 @@ A full stack e-commerce website.
     git clone https://github.com/Mrkalen/not-etsy
     ```
  2. Make a copy of .env.example
-    ```npm
+    ```
     cp .env.example .env
     ```
  3. Install all dependencies with NPM
-    ```npm
+    ```
     npm install
     ```
  4. Confirm postgresql is running
-    ```npm
+    ```
     sudo service postgresql start
     ```
  5. Create DataBase
-    ```npm
+    ```
     createdb not-etsy
     ```
  6. Import database Schema and Data
-    ```npm
+    ```
     npm run db:import
     ```
  7. Start Express API server and Webpack Dev Server
-    ```npm
+    ```
     npm run dev
     ```
