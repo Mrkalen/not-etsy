@@ -19,7 +19,7 @@ A full stack e-commerce website.
   - Webpack 4
   - JSONWebtoken
 
-## Features: 
+## Features
 
   - User can view items by new
   - User can view details of an item
