@@ -28,6 +28,10 @@ A full stack e-commerce website.
   - User can remove items from their cart
   - User can update quantity in cart
   
+## Images
+
+![alt text](https://user-images.githubusercontent.com/70028619/104510807-981b8200-55a0-11eb-981c-8d605a65b3fa.gif)
+  
 # Development
 
 ## System Requirements
