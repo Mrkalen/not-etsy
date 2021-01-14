@@ -78,15 +78,15 @@ export default class NameDateForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='text-left m-3'>
-          <label htmlFor='custom-name-date' className='custom-name-date'>
+          <label htmlFor='custom-name-date' className='custom-name-date heading'>
             Please enter your last name and an est date:
           </label>
           <div className='custom-name-date-input d-flex justify-content-between'>
             <div className="input-group input-group-sm mb-3 pl-0 col-6">
-              <input onChange={this.handleChange} required value={this.state.customizations.name} name='name' type="text" className="form-control shadow" id='custom-request-name' placeholder='Name' aria-label="Input for name" aria-describedby="inputGroup-sizing-sm" />
+              <input onChange={this.handleChange} required value={this.state.customizations.name} name='name' type="text" className="form-control shadow-sm copy" id='custom-request-name' placeholder='Name' aria-label="Input for name" aria-describedby="inputGroup-sizing-sm" />
             </div>
             <div className="input-group input-group-sm mb-3 pr-0 col-6 ">
-              <input onChange={this.handleChange} required value={this.state.customizations.date} name='date' type="text" className="form-control shadow" id='custom-request-date' placeholder='Date' aria-label="Input for date" aria-describedby="inputGroup-sizing-sm" />
+              <input onChange={this.handleChange} required value={this.state.customizations.date} name='date' type="text" className="form-control shadow-sm copy" id='custom-request-date' placeholder='Date' aria-label="Input for date" aria-describedby="inputGroup-sizing-sm" />
             </div>
           </div>
           <label htmlFor='custom-request-name-date' className='custom-request heading'>
@@ -98,7 +98,7 @@ export default class NameDateForm extends React.Component {
         </div>
         <div className='row d-flex justify-content-around align-items-center'>
           <div className="input-group col-4">
-            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 qty" id="qty-select-name-date" aria-label="Quantity select for items with name and date">
+            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty copy" id="qty-select-name-date" aria-label="Quantity select for items with name and date">
               <option defaultValue value=''>QTY</option>
               <option value="1">1</option>
               <option value="2">2</option>

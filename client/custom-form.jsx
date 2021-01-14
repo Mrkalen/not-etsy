@@ -87,7 +87,7 @@ export default class CustomForm extends React.Component {
         </div>
         <div className='row d-flex justify-content-around align-items-center'>
           <div className="input-group col-4">
-            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 qty" id="qty-select-custom" aria-label="Example select with button addon">
+            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty copy" id="qty-select-custom" aria-label="Example select with button addon">
               <option defaultValue value=''>QTY</option>
               <option value='1'>1</option>
               <option value='2'>2</option>

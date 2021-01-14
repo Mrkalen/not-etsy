@@ -97,3 +97,9 @@ img {
   font-size: medium;
   font-family: 'Roboto', sans-serif;
 }
+
+.cart,
+.custom-select {
+  height: 2rem;
+  margin-top: 0.5rem;
+}
