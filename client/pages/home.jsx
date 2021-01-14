@@ -21,6 +21,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <>
+      <div className='container'>
         <div className='home-items'>
           <div className='carousel-title text-center'>
             <a href={'#new-items'}>
@@ -54,6 +55,7 @@ export default class Home extends React.Component {
               );
             })}
           </div>
+        </div>
         </div>
       </>
     );

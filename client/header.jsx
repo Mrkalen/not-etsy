@@ -9,7 +9,7 @@ export default class Header extends React.Component {
         <div>
           <h1 className='title'>Happy Hour Homemade</h1>
         </div>
-        <nav className="nav header-nav d-flex justify-content-between">
+        <nav className="nav header-nav d-flex justify-content-between mb-3">
           <div className="dropdown">
             <button className="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i className="fas fa-bars"></i>
