@@ -12,6 +12,10 @@ textarea {
   resize: none;
 }
 
+a {
+  color: black;
+}
+
 .title {
   background: radial-gradient(50% 50% at 50% 50%, #c5f9fa 25%, rgba(255, 255, 255, 0) 100%), #66acad;
   font-family: 'Almendra SC', serif;
@@ -70,21 +74,6 @@ textarea {
 i.update-symbol {
   font-size: 1rem;
 }
-
-/* .home-image {
-  width: 5rem;
-  height: 5rem;
-  object-fit: contain;
-} */
-
-.price,
-.card-title {
-  color: black;
-}
-
-/* .item-cards {
-  width: 5rem;
-} */
 
 img {
   height: 10rem;
