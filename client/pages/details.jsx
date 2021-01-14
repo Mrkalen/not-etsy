@@ -51,8 +51,8 @@ export default class Details extends React.Component {
         <img className='img-detail img-fluid p-3' src={pictureUrl} alt={description}></img>
         <h5 className='price'>{`$${price}.00`}</h5>
         <div className='text-left m-3'>
-          <h5>Description:</h5>
-          <h5>{description}</h5>
+          <h5 className='heading'>Description:</h5>
+          <h5 className='copy'>{description}</h5>
         </div>
         {this.renderForm()}
       </div>
