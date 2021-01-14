@@ -4,6 +4,7 @@ import NewItems from './pages/new-items';
 import parseRoute from './lib/parse-route';
 import Details from './pages/details';
 import Cart from './pages/cart';
+import Home from './pages/home';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -38,6 +39,10 @@ export default class App extends React.Component {
     } else if (route.path === 'cart') {
       return (
         <Cart />
+      );
+    } else if (route.path === '') {
+      return (
+        <Home />
       );
     }
   }
