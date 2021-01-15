@@ -1,9 +1,11 @@
 import React from 'react';
+import CartModal from './cart-modal';
 
 export default class NameDateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      display: 'd-none',
       quantity: '',
       customizations: {
         name: '',
@@ -14,6 +16,7 @@ export default class NameDateForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleChange() {
@@ -60,6 +63,7 @@ export default class NameDateForm extends React.Component {
       })
       .then(() => {
         const newState = {
+          display: '',
           quantity: '',
           customizations: {
             name: '',
@@ -73,8 +77,11 @@ export default class NameDateForm extends React.Component {
       .catch(err => console.error('Error:', err.message));
   }
 
+  closeModal() {
+    this.setState({ display: 'd-none' });
+  }
+
   render() {
-    const display = '';
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -109,27 +116,7 @@ export default class NameDateForm extends React.Component {
             </select>
           </div>
           <button type="submit" className="btn btn-primary col-4 p-0 shadow-sm cart">Add to cart</button>
-          <div className={`cart-modal ${display}`}>
-          <div className='cart-modal-body'>
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Modal title</h5>
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div className="modal-body">
-                    <p>Modal body text goes here.</p>
-                  </div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary">Close</button>
-                    <button type="button" className="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-          </div>
-          </div>
+          <CartModal display={this.state.display} closeModal={this.closeModal} />
         </div>
       </form>
     );

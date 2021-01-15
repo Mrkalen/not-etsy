@@ -1,9 +1,11 @@
 import React from 'react';
+import CartModal from './cart-modal';
 
 export default class CustomForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      display: 'd-none',
       currentProduct: null,
       quantity: '',
       customizations: {
@@ -15,6 +17,7 @@ export default class CustomForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleChange() {
@@ -61,6 +64,7 @@ export default class CustomForm extends React.Component {
       })
       .then(() => {
         const newState = {
+          display: '',
           quantity: '',
           customizations: {
             name: '',
@@ -72,6 +76,10 @@ export default class CustomForm extends React.Component {
         this.setState(newState);
       })
       .catch(err => console.error('Error:', err.message));
+  }
+
+  closeModal() {
+    this.setState({ display: 'd-none' });
   }
 
   render() {
@@ -97,6 +105,7 @@ export default class CustomForm extends React.Component {
             </select>
           </div>
           <button type="submit" className="btn btn-primary col-4 p-0 shadow-sm cart">Add to cart</button>
+          <CartModal display={this.state.display} closeModal={this.closeModal} />
         </div>
       </form>
     );
