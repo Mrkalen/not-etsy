@@ -1,5 +1,5 @@
 import React from 'react';
-import Thumbnails from '../thumbnails';
+import ThumbnailGallery from '../thumbnail-gallery';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -19,42 +19,19 @@ export default class Home extends React.Component {
   }
 
   render() {
+    const ornaments = this.state.products.filter(product => {
+      return (product.categoryId === 1);
+    });
+    const wallDecor = this.state.products.filter(product => {
+      return (product.categoryId === 3);
+    });
     return (
       <>
       <div className='container'>
         <div className='home-items'>
-          <div className='carousel-title text-center'>
-            <a href={'#new-items'}>
-              <h2>New Items</h2>
-            </a>
-          </div>
-          <div className='new-items-thumbnail row d-flex align-items-center'>
-            {this.state.products.map((product, index) => {
-              return (
-              <Thumbnails key={`new-product-${product.productId}`} product={product} name='new' />
-              );
-            })}
-          </div>
-          <div className='carousel-title text-center'>
-            <h2>Ornaments</h2>
-          </div>
-          <div className='ornaments-thumbnail row d-flex align-items-center'>
-            {this.state.products.map((product, index) => {
-              return (
-                <Thumbnails key={`ornament-product-${product.productId}`} product={product} name='ornament' />
-              );
-            })}
-          </div>
-          <div className='carousel-title text-center'>
-            <h2>Wall Decor</h2>
-          </div>
-          <div className='wall-decor-thumbnail row d-flex align-items-center'>
-            {this.state.products.map((product, index) => {
-              return (
-                <Thumbnails key={`wall-decor-product-${product.productId}`} product={product} name='wall-decor' />
-              );
-            })}
-          </div>
+          <ThumbnailGallery title='New Items' titleLink='#new-items' products={this.state.products} />
+          <ThumbnailGallery title='Ornaments' titleLink='#ornaments' products={ornaments} />
+          <ThumbnailGallery title='Wall Decor' titleLink='#wall-decor' products={wallDecor} />
         </div>
         </div>
       </>

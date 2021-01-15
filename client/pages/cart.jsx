@@ -1,29 +1,37 @@
 import React from 'react';
-import CustomCard from '../custom-card';
-import BrandCard from '../brand-card';
-import NameDateCard from '../name-date-card';
+import CartItem from '../cart-item';
 
-function CartItem(props) {
-  const customizationId = props.product.customizationId;
-  const { updateItem, deleteItem } = props;
-  let item = null;
-  if (customizationId === 4) {
-    item = <CustomCard product={props.product} updateItem={updateItem} deleteItem={deleteItem}/>;
-  } else if (customizationId === 3) {
-    item = <BrandCard product={props.product} updateItem={updateItem} deleteItem={deleteItem}/>;
-  } else if (customizationId === 2) {
-    item = <NameDateCard product={props.product} updateItem={updateItem} deleteItem={deleteItem}/>;
-  }
-  return (
-    <div className='card'>
-      <div className='card-body col-12'>
-        <div className='row d-flex align-center'>
-        {item}
+function Customization(props) {
+  if (props.customizationId === 4) {
+    return (
+      <div className='col-4 pl-2 pr-0 pt-2 customizations text-left'>
+        <p className='customizations-title m-0'>Customizations</p>
+        <p className='custom-request m-0'>Custom Request:</p>
+        <p className='customization m-0 p-1'>{props.customizations.customRequest}</p>
       </div>
-    </div>
-
-    </div>
-  );
+    );
+  } else if (props.customizationId === 2) {
+    return (
+      <div className='col-4 pl-2 pr-0 pt-2 customizations text-left'>
+        <p className='customizations-title m-0'>Customizations</p>
+        <div className='name-date d-flex'>
+          <p>{`Name: ${props.customizations.name}`}</p>
+          <p>{`Date: ${props.customizations.date}`}</p>
+        </div>
+        <p className='custom-request m-0'>Custom Request:</p>
+        <p className='customization m-0 p-1'>{props.customizations.custom}</p>
+      </div>
+    );
+  } else if (props.customizationId === 3) {
+    return (
+      <div className='col-4 pl-2 pr-0 pt-2 customizations text-left'>
+        <p className='customizations-title m-0'>Customizations</p>
+        <p className='brand m-0'>{`Brand: ${props.customizations.brand}`}</p>
+        <p className='custom-request m-0'>Custom Request:</p>
+        <p className='customization m-0 p-1'>{props.customizations.custom}</p>
+      </div>
+    );
+  }
 }
 
 export default class Cart extends React.Component {
@@ -122,12 +130,14 @@ export default class Cart extends React.Component {
       return (
         this.state.cartItems.map((product, index) => {
           return (
-      <CartItem
-          key={index}
-          product={product}
-          updateItem={this.updateItem}
-          deleteItem={this.deleteItem}
-      />
+            <CartItem
+              key={index}
+              product={product}
+              updateItem={this.updateItem}
+              deleteItem={this.deleteItem}
+            >
+              <Customization customizationId={product.customizationId} customizations={product.customizations} />
+            </CartItem>
           );
         }
         )
