@@ -30,10 +30,10 @@ export default class CartModal extends React.Component {
               </div>
               <div className="modal-footer">
                 <a href='' onClick={this.handleClick}>
-                <button type="button" className="btn btn-secondary">Home</button>
+                  <button type="button" className="btn btn-secondary">Home</button>
                 </a>
                 <a href='#cart' onClick={this.handleClick}>
-                <button type="button" className="btn btn-primary">Cart</button>
+                  <button type="button" className="btn btn-primary">Cart</button>
                 </a>
               </div>
             </div>

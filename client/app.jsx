@@ -5,15 +5,18 @@ import parseRoute from './lib/parse-route';
 import Details from './pages/details';
 import Cart from './pages/cart';
 import Home from './pages/home';
+import Menu from './menu';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      menuToggle: false,
       products: [],
       route: parseRoute(window.location.hash)
     };
 
+    this.menuClick = this.menuClick.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +24,11 @@ export default class App extends React.Component {
       const newRoute = parseRoute(window.location.hash);
       this.setState({ route: newRoute });
     });
+  }
+
+  menuClick() {
+    const toggle = this.state.menuToggle;
+    this.setState({ menuToggle: !toggle });
   }
 
   renderPage() {
@@ -48,10 +56,16 @@ export default class App extends React.Component {
   }
 
   render() {
+    const toggle = this.state.menuToggle;
+    let menu = 'd-none';
+    if (toggle) {
+      menu = '';
+    }
 
     return (
       <>
-        <Header />
+        <Header clicked={this.menuClick} />
+        <Menu display={menu} clicked={this.menuClick} />
         { this.renderPage()}
 
       </>

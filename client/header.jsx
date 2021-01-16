@@ -1,6 +1,15 @@
 import React from 'react';
 
 export default class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.clicked();
+  }
 
   render() {
 
@@ -11,16 +20,9 @@ export default class Header extends React.Component {
         </div>
         <nav className="nav header-nav d-flex justify-content-between mb-3">
           <div className="dropdown">
-            <button className="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i className="fas fa-bars"></i>
+            <button onClick={this.handleClick} className="btn" type="button">
+              <i className='fas fa-bars'></i>
             </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a className="dropdown-item" href=''>Home</a>
-              <a className="dropdown-item" href="#new-items">New Items</a>
-              <a className="dropdown-item">Ornaments</a>
-              <a className="dropdown-item">Wall Decor</a>
-              <a className="dropdown-item" href="#cart">Cart</a>
-            </div>
           </div>
           <a className="nav-link active" aria-current="page" href="#cart">
             <i className="fas fa-shopping-cart"></i>
