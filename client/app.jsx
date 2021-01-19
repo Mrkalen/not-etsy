@@ -64,10 +64,10 @@ export default class App extends React.Component {
 
     return (
       <>
+        <div onClick={this.menuClick} className={`menu-background ${menu}`}></div>
         <Header clicked={this.menuClick} />
         <Menu display={menu} clicked={this.menuClick} />
         { this.renderPage()}
-
       </>
     );
   }
