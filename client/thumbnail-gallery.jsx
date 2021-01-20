@@ -9,7 +9,7 @@ export default function ThumbnailGallery(props) {
           <h2>{props.title}</h2>
         </a>
       </div>
-      <div className='row d-flex align-items-center'>
+      <div className='row m-auto d-flex align-items-center'>
         {props.products.map(product => {
           return (
             <div key={product.productId} className='col-4 d-flex justify-content-center'>

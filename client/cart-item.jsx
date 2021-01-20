@@ -36,7 +36,7 @@ export default class CartItem extends React.Component {
     return (
       <div className='card'>
         <div className='card-body col-12'>
-          <div className='row d-flex align-center'>
+          <div className='row m-auto d-flex align-center'>
             <div className="card">
               <div className="card-header text-left pl-2">
                 {productName}

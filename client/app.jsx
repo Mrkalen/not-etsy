@@ -36,7 +36,7 @@ export default class App extends React.Component {
     const { route } = this.state;
     if (route.path === 'new-items') {
       return (
-        <div className='row'>
+        <div className='row m-auto'>
           { <NewItems />}
         </div>
       );

@@ -8,7 +8,7 @@ export default class Menu extends React.Component {
     return (
       <div className={`menu container ${display}`}>
         <div className='menu-body'>
-          <div className="menu-items" aria-labelledby="dropdownMenuButton">
+          <div className="menu-items ml-2" aria-labelledby="dropdownMenuButton">
             <a onClick={this.props.clicked} className="menu-item" href=''>Home</a>
             <a onClick={this.props.clicked} className="menu-item" href="#new-items">New Items</a>
             <a onClick={this.props.clicked} className="menu-item">Ornaments</a>

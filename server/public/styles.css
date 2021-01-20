@@ -16,6 +16,12 @@ a {
   color: black;
 }
 
+h6,
+textarea,
+select {
+  font-family: 'Roboto', sans-serif;
+}
+
 .title {
   background: radial-gradient(50% 50% at 50% 50%, #c5f9fa 25%, rgba(255, 255, 255, 0) 100%), #66acad;
   font-family: 'Almendra SC', serif;
@@ -38,7 +44,7 @@ a {
 }
 
 .team-name {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .custom-name-date {
@@ -80,29 +86,15 @@ img {
   object-fit: cover;
 }
 
-.category-title {
-  text-align: center;
-}
-
-.row {
-  margin: auto;
-}
-
 .heading {
   font-weight: bold;
   font-size: large;
 }
 
-.copy {
-  font-size: medium;
-  font-family: 'Roboto', sans-serif;
-}
-
-.cart,
-.custom-select {
+.qty,
+.cart {
   max-width: 6rem;
   height: 2rem;
-  margin-top: 0.5rem;
 }
 
 .cart-modal {
@@ -114,17 +106,7 @@ img {
   width: 100vw;
 }
 
-/* .menu-background {
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 110px;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-} */
-
-.header-menu-background {
+.menu-background {
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -147,9 +129,4 @@ img {
 .menu-items {
   display: flex;
   flex-direction: column;
-  padding-left: 0.5rem;
-}
-
-menu {
-  position: fixed;
 }

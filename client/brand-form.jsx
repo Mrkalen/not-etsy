@@ -83,41 +83,43 @@ export default class BrandForm extends React.Component {
 
   render() {
     return (
-    <form onSubmit={this.handleSubmit}>
-      <div className='text-left m-3'>
-        <div className="input-group mb-2 w-50 mx-auto">
-            <select onChange={this.handleChange} required value={this.state.customizations.brand} name='brand' className="custom-select team-name shadow-sm copy" id="custom-select-brand">
-            <option defaultValue value=''>Team Name</option>
-            <option value="rams">Ram&apos;s</option>
-            <option value="chargers">Chargers</option>
-            <option value="raiders">Raiders</option>
-            <option value="49ers">49ers</option>
-            <option value="seahawks">Seahawks</option>
-            <option value="dolphins">Dolphins</option>
-          </select>
-        </div>
-        <label htmlFor='custom-request-brand' className='custom-request heading'>
-          Please enter any custom details:
-            </label>
-          <div className="input-group">
-            <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request-brand' className="form-control copy" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
-          </div>
-        <div className='row d-flex justify-content-around align-items-center'>
-          <div className="input-group col-4">
-              <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty copy" id="qty-select-brand" aria-label="Example select with button addon">
-              <option defaultValue value=''>QTY</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+      <form onSubmit={this.handleSubmit}>
+        <div className='text-left m-3'>
+          <div className="input-group mb-2 w-50 mx-auto">
+            <select onChange={this.handleChange} required value={this.state.customizations.brand} name='brand' className="custom-select team-name shadow-sm" id="custom-select-brand">
+              <option defaultValue value=''>Team Name</option>
+              <option value="rams">Ram&apos;s</option>
+              <option value="chargers">Chargers</option>
+              <option value="raiders">Raiders</option>
+              <option value="49ers">49ers</option>
+              <option value="seahawks">Seahawks</option>
+              <option value="dolphins">Dolphins</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-primary col-4 p-0 shadow-sm cart">Add to cart</button>
-          <CartModal display={this.state.display} closeModal={this.closeModal} />
+          <div className='text-left m-3'>
+            <label htmlFor='custom-request-brand' className='custom-request heading'>
+              Please enter any custom details:
+            </label>
+            <div className="input-group">
+              <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
+            </div>
+          </div>
+          <div className='row m-auto d-flex justify-content-around align-items-center'>
+            <div className="input-group col-4">
+              <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty" id="qty-select-brand" aria-label="Example select with button addon">
+                <option defaultValue value=''>QTY</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <button type="submit" className="btn btn-primary col-4 p-0 shadow-sm cart">Add to cart</button>
+            <CartModal display={this.state.display} closeModal={this.closeModal} />
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
     );
   }
 }

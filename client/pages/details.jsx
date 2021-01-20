@@ -52,7 +52,7 @@ export default class Details extends React.Component {
         <h5 className='price'>{`$${price}.00`}</h5>
         <div className='text-left m-3'>
           <h5 className='heading'>Description:</h5>
-          <h5 className='copy'>{description}</h5>
+          <h6>{description}</h6>
         </div>
         {this.renderForm()}
       </div>

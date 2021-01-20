@@ -38,11 +38,11 @@ class NewItems extends React.Component {
   render() {
     return (
       <>
-      <div className='category-title w-100 mb-2'>
+      <div className='category-title text-center w-100 mb-2'>
         <h2>New Items</h2>
       </div>
       <div className='container'>
-        <div className='row mx-0'>
+        <div className='row m-auto mx-0'>
           {this.state.products.map((product, index) => {
             return (
               <Product
