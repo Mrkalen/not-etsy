@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function ThumbnailGallery(props) {
-  console.log(props.products);
   return (
     <>
       <div className='carousel-title text-center'>
@@ -9,20 +8,32 @@ export default function ThumbnailGallery(props) {
           <h2>{props.title}</h2>
         </a>
       </div>
-      <div className='row m-auto d-flex align-items-center'>
+      <div className='d-flex flex-row align-items-center justify-content-between'>
+      <i className="fas fa-chevron-left"></i>
+      <div className='row d-flex justify-content-around w-100 px-3'>
         {props.products.map((product, index) => {
-          let display = '';
-          if (index !== props.carouselIndex) {
-            display = 'd-none';
+          console.log('index', index);
+          const carIndex = props.carouselIndex;
+          console.log('carIndex', carIndex);
+          console.log('carIndex 1', carIndex + 1);
+          console.log('carIndex 2', carIndex + 2);
+
+          let display = 'd-none';
+          if (index === carIndex || index === carIndex + 1 || index === carIndex + 2) {
+            display = '';
           }
           return (
-            <div key={product.productId} className={`col-4 d-flex justify-content-center ${display}`}>
-              <a href={`#details?productId=${product.productId}`}>
-                <img src={product.pictureUrl} className='img-fluid home-image'></img>
-              </a>
+            <div className={display} key={product.productId}>
+              <div className='col-4 justify-content-center p-0'>
+                <a href={`#details?productId=${product.productId}`}>
+                  <img src={product.pictureUrl} className='home-image'></img>
+                </a>
+              </div>
             </div>
           );
         })}
+      </div>
+      <i className="fas fa-chevron-right"></i>
       </div>
     </>
   );

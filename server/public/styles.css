@@ -22,6 +22,11 @@ select {
   font-family: 'Roboto', sans-serif;
 }
 
+img {
+  height: 10rem;
+  object-fit: cover;
+}
+
 .title {
   background: radial-gradient(50% 50% at 50% 50%, #c5f9fa 25%, rgba(255, 255, 255, 0) 100%), #66acad;
   font-family: 'Almendra SC', serif;
@@ -81,11 +86,6 @@ i.update-symbol {
   font-size: 1rem;
 }
 
-img {
-  height: 10rem;
-  object-fit: cover;
-}
-
 .heading {
   font-weight: bold;
   font-size: large;
@@ -129,4 +129,10 @@ img {
 .menu-items {
   display: flex;
   flex-direction: column;
+}
+
+.home-image {
+  height: 5rem;
+  width: 5rem;
+  object-fit: cover;
 }
