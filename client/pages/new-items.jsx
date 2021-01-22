@@ -43,7 +43,7 @@ class NewItems extends React.Component {
       </div>
       <div className='container'>
         <div className='row m-auto mx-0'>
-          {this.state.products.map((product, index) => {
+          {this.state.products.map(product => {
             return (
               <Product
                 key={product.productId}

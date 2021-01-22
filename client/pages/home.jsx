@@ -4,7 +4,12 @@ import ThumbnailGallery from '../thumbnail-gallery';
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { products: [] };
+    this.state = {
+      products: [],
+      newIndex: 1,
+      ornamentIndex: 0,
+      wallDecorIndex: 0
+    };
   }
 
   componentDidMount() {
@@ -29,9 +34,9 @@ export default class Home extends React.Component {
       <>
       <div className='container'>
         <div className='home-items'>
-          <ThumbnailGallery title='New Items' titleLink='#new-items' products={this.state.products} />
-          <ThumbnailGallery title='Ornaments' titleLink='#ornaments' products={ornaments} />
-          <ThumbnailGallery title='Wall Decor' titleLink='#wall-decor' products={wallDecor} />
+          <ThumbnailGallery title='New Items' titleLink='#new-items' products={this.state.products} carouselIndex={this.state.newIndex} />
+          <ThumbnailGallery title='Ornaments' titleLink='#ornaments' products={ornaments} carouselIndex={this.state.ornamentIndex} />
+          <ThumbnailGallery title='Wall Decor' titleLink='#wall-decor' products={wallDecor} carouselIndex={this.state.wallDecorIndex} />
         </div>
         </div>
       </>
