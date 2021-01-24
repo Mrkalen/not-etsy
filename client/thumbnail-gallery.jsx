@@ -14,16 +14,19 @@ export default function ThumbnailGallery(props) {
       <div className='row d-flex justify-content-around'>
         {props.products.map((product, index) => {
           const arrLength = props.products.length;
-          console.log(arrLength);
-          const carIndex = props.carouselIndex;
+          const carouselIndex = props.carouselIndex;
           let display = 'd-none';
-          if (index >= 0 && index <= props.products.length) {
-            if (index === carIndex || index === carIndex + 1 || index === carIndex + 2) {
+          console.log('arrLength', arrLength - 3);
+          console.log('index', index);
+          console.log('carouselIndex', carouselIndex);
+          if (index >= 0 && carouselIndex <= arrLength - 3) {
+
+            if (index === carouselIndex || index === carouselIndex + 1 || index === carouselIndex + 2) {
               display = '';
             }
-          } else if (index === 9) {
-            if (index === carIndex || index === carIndex + 1 || index === carIndex - arrLength) {
-              console.log('banana');
+          } else if (index === arrLength - 2) {
+            if (index === carouselIndex || index === carouselIndex + 1) {
+              display = '';
             }
           }
           return (
