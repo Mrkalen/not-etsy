@@ -6,10 +6,12 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       products: [],
-      newIndex: 1,
+      newIndex: 0,
       ornamentIndex: 0,
       wallDecorIndex: 0
     };
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -23,6 +25,24 @@ export default class Home extends React.Component {
       .catch(err => console.error('GET error', err.message));
   }
 
+  handleClick() {
+    let { newIndex, ornamentIndex, wallDecorIndex } = this.state;
+    const { id } = event.target;
+    if (id === 'newItemsRight') {
+      this.setState({ newIndex: newIndex += 1 });
+    } else if (id === 'newItemsLeft') {
+      this.setState({ newIndex: newIndex -= 1 });
+    } else if (id === 'ornamentsRight') {
+      this.setState({ ornamentIndex: ornamentIndex += 1 });
+    } else if (id === 'ornamentsLeft') {
+      this.setState({ ornamentIndex: ornamentIndex -= 1 });
+    } else if (id === 'wallDecorRight') {
+      this.setState({ wallDecorIndex: wallDecorIndex += 1 });
+    } else if (id === 'wallDecorLeft') {
+      this.setState({ wallDecorIndex: wallDecorIndex -= 1 });
+    }
+  }
+
   render() {
     const ornaments = this.state.products.filter(product => {
       return (product.categoryId === 1);
@@ -34,9 +54,9 @@ export default class Home extends React.Component {
       <>
       <div className='container'>
         <div className='home-items'>
-          <ThumbnailGallery title='New Items' titleLink='#new-items' products={this.state.products} carouselIndex={this.state.newIndex} />
-          <ThumbnailGallery title='Ornaments' titleLink='#ornaments' products={ornaments} carouselIndex={this.state.ornamentIndex} />
-          <ThumbnailGallery title='Wall Decor' titleLink='#wall-decor' products={wallDecor} carouselIndex={this.state.wallDecorIndex} />
+          <ThumbnailGallery name='newItems' title='New Items' titleLink='#new-items' products={this.state.products} carouselIndex={this.state.newIndex} chevronClick={this.handleClick} />
+            <ThumbnailGallery name='ornaments' title='Ornaments' titleLink='#ornaments' products={ornaments} carouselIndex={this.state.ornamentIndex} chevronClick={this.handleClick} />
+              <ThumbnailGallery name='wallDecor' title='Wall Decor' titleLink='#wall-decor' products={wallDecor} carouselIndex={this.state.wallDecorIndex} chevronClick={this.handleClick} />
         </div>
         </div>
       </>
