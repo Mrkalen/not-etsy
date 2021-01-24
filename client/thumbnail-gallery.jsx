@@ -13,10 +13,18 @@ export default function ThumbnailGallery(props) {
       <i onClick={chevronClick} className="fas fa-chevron-left pr-2" id={`${name}Left`}></i>
       <div className='row d-flex justify-content-around'>
         {props.products.map((product, index) => {
+          const arrLength = props.products.length;
+          console.log(arrLength);
           const carIndex = props.carouselIndex;
           let display = 'd-none';
-          if (index === carIndex || index === carIndex + 1 || index === carIndex + 2) {
-            display = '';
+          if (index >= 0 && index <= props.products.length) {
+            if (index === carIndex || index === carIndex + 1 || index === carIndex + 2) {
+              display = '';
+            }
+          } else if (index === 9) {
+            if (index === carIndex || index === carIndex + 1 || index === carIndex - arrLength) {
+              console.log('banana');
+            }
           }
           return (
             <div className={display} key={product.productId}>
