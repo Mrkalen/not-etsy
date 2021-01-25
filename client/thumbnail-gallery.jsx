@@ -4,7 +4,9 @@ export default class ThumbnailGallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      carouselIndex: 0
+      firstPosition: 0,
+      secondPosition: 1,
+      thirdPosition: 2
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -12,61 +14,85 @@ export default class ThumbnailGallery extends React.Component {
   handleClick() {
     const id = event.target.id;
     const arrLength = this.props.products.length;
-    const carouselIndex = this.state.carouselIndex;
+    const firstPosition = this.state.firstPosition;
+    const secondPosition = this.state.secondPosition;
+    const thirdPosition = this.state.thirdPosition;
     if (id === 'chevRight') {
-      if (carouselIndex === arrLength - 1) {
-        this.setState({ carouselIndex: 0 });
+      if (firstPosition === arrLength - 1) {
+        this.setState({
+          firstPosition: 0,
+          secondPosition: 1,
+          thirdPosition: 2
+        });
+      } else if (firstPosition === arrLength - 2) {
+        this.setState({
+          firstPosition: firstPosition + 1,
+          secondPosition: 0,
+          thirdPosition: 1
+        });
+      } else if (firstPosition === arrLength - 3) {
+        this.setState({
+          firstPosition: firstPosition + 1,
+          secondPosition: secondPosition + 1,
+          thirdPosition: 0
+        });
       } else {
-        this.setState({ carouselIndex: carouselIndex + 1 });
+        this.setState({
+          firstPosition: firstPosition + 1,
+          secondPosition: secondPosition + 1,
+          thirdPosition: thirdPosition + 1
+        });
       }
     } else if (id === 'chevLeft') {
-      if (carouselIndex === 0) {
-        this.setState({ carouselIndex: arrLength - 1 });
+      if (firstPosition === 0) {
+        this.setState({ firstPosition: arrLength - 1 });
       } else {
-        this.setState({ carouselIndex: carouselIndex - 1 });
+        this.setState({ firstPosition: firstPosition - 1 });
       }
     }
   }
 
   render() {
     const { titleLink, title, products } = this.props;
+    const product1 = products[0];
+    console.log('product 1', product1.productId);
+    const display = '';
+    const { firstPosition, secondPosition, thirdPosition } = this.state;
     return (
-    <>
-      <div className='carousel-title text-center'>
-        <a href={titleLink}>
-          <h2>{title}</h2>
-        </a>
-      </div>
-      <div className='d-flex flex-row align-items-center justify-content-between'>
-      <i onClick={this.handleClick} className="fas fa-chevron-left pr-2" id='chevLeft'></i>
-      <div className='row d-flex justify-content-around'>
-        {products.map((product, index) => {
-          const carouselIndex = this.state.carouselIndex;
-          const arrLength = products.length;
-          let display = 'd-none';
-          if (arrLength < 3) {
-            display = '';
-          } else {
-            if (carouselIndex >= 0 && carouselIndex <= arrLength - 3) {
-              if (index === carouselIndex || index === carouselIndex + 1 || index === carouselIndex + 2) {
-                display = '';
-              }
-            }
-          }
-          return (
-            <div className={display} key={product.productId}>
+      <>
+        <div className='carousel-title text-center'>
+          <a href={titleLink}>
+            <h2>{title}</h2>
+          </a>
+        </div>
+        <div className='d-flex flex-row align-items-center justify-content-between'>
+          <i onClick={this.handleClick} className="fas fa-chevron-left pr-2" id='chevLeft'></i>
+          <div className='row d-flex justify-content-around'>
+            <div className={display}>
               <div className='col-4 justify-content-center p-0'>
-                <a href={`#details?productId=${product.productId}`}>
-                  <img src={product.pictureUrl} className='home-image mx-2'></img>
+                <a href={`#details?productId=${products.productId}`}>
+                  <img src={products.pictureUrl} className='home-image mx-2'></img>
                 </a>
               </div>
             </div>
-          );
-        })}
-      </div>
-        <i onClick={this.handleClick} className='fas fa-chevron-right pl-2' id='chevRight'></i>
-      </div>
-    </>
+            <div className={display}>
+              <div className='col-4 justify-content-center p-0'>
+                <a href={`#details?productId=${products.productId}`}>
+                  <img src={products.pictureUrl} className='home-image mx-2'></img>
+                </a>
+              </div>
+            </div>
+            <div className={display}>
+              <div className='col-4 justify-content-center p-0'>
+                <a href={`#details?productId=${products.productId}`}>
+                  <img src={products.pictureUrl} className='home-image mx-2'></img>
+                </a>
+              </div>
+            </div>
+          </div>
+          <i onClick={this.handleClick} className='fas fa-chevron-right pl-2' id='chevRight'></i>
+        </div>
+      </>
     );
   }
 }
