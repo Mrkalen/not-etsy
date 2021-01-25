@@ -11,11 +11,20 @@ export default class ThumbnailGallery extends React.Component {
 
   handleClick() {
     const id = event.target.id;
-    let newState = Object.create(this.state.carouselIndex, {});
+    const arrLength = this.props.products.length;
+    const carouselIndex = this.state.carouselIndex;
     if (id === 'chevRight') {
-      this.setState({ carouselIndex: newState += 1 });
+      if (carouselIndex === arrLength - 1) {
+        this.setState({ carouselIndex: 0 });
+      } else {
+        this.setState({ carouselIndex: carouselIndex + 1 });
+      }
     } else if (id === 'chevLeft') {
-      this.setState({ carouselIndex: newState -= 1 });
+      if (carouselIndex === 0) {
+        this.setState({ carouselIndex: arrLength - 1 });
+      } else {
+        this.setState({ carouselIndex: carouselIndex - 1 });
+      }
     }
   }
 
@@ -32,11 +41,18 @@ export default class ThumbnailGallery extends React.Component {
       <i onClick={this.handleClick} className="fas fa-chevron-left pr-2" id='chevLeft'></i>
       <div className='row d-flex justify-content-around'>
         {products.map((product, index) => {
-          console.log(product);
-          console.log(product.productId);
-          const arrLength = product.length;
-          const display = '';
-
+          const carouselIndex = this.state.carouselIndex;
+          const arrLength = products.length;
+          let display = 'd-none';
+          if (arrLength < 3) {
+            display = '';
+          } else {
+            if (carouselIndex >= 0 && carouselIndex <= arrLength - 3) {
+              if (index === carouselIndex || index === carouselIndex + 1 || index === carouselIndex + 2) {
+                display = '';
+              }
+            }
+          }
           return (
             <div className={display} key={product.productId}>
               <div className='col-4 justify-content-center p-0'>
