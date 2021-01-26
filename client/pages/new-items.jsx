@@ -4,13 +4,13 @@ function Product(props) {
 
   const { pictureUrl, productName, price, productId } = props.product;
   return (
-    <div className='col-6'>
+    <div className='col-6 col-md-4 col-xl-2 col-lg-3'>
       <a href={`#details?productId=${productId}`}>
-        <div className="card mb-3 shadow-sm text-center">
-          <img className='img-no-detail' src={pictureUrl}></img>
-          <div className="card-body">
-            <h5 className="card-title">{productName}</h5>
-            <h5 className='price'>{`$${price}.00`}</h5>
+        <div className="item-cards mb-3 shadow-sm text-center" style={{ height: 15 + 'rem' }}>
+          <img className='card-img-top' src={pictureUrl}></img>
+          <div className="card-body p-2">
+            <h6 className="card-title">{productName}</h6>
+            <h6 className='price'>{`$${price}.00`}</h6>
           </div>
         </div>
       </a>
@@ -37,15 +37,23 @@ class NewItems extends React.Component {
 
   render() {
     return (
-      this.state.products.map((product, index) => {
-        return (
-          <Product
-            key={product.productId}
-            product={product}
-          />
-        );
-      }
-      )
+      <>
+      <div className='category-title text-center w-100 mb-2'>
+        <h2>New Items</h2>
+      </div>
+      <div className='container'>
+        <div className='row m-auto mx-0'>
+          {this.state.products.map(product => {
+            return (
+              <Product
+                key={product.productId}
+                product={product}
+              />
+            );
+          })}
+        </div>
+      </div>
+      </>
     );
   }
 }
