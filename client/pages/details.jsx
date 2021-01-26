@@ -29,7 +29,7 @@ export default class Details extends React.Component {
     const { customizationId } = this.state.currentProduct;
     if (customizationId === 4) {
       return (
-      <CustomForm product={this.state.currentProduct} />
+        <CustomForm product={this.state.currentProduct} />
       );
     } else if (customizationId === 3) {
       return (
@@ -46,17 +46,18 @@ export default class Details extends React.Component {
     if (!this.state.currentProduct) return null;
     const { pictureUrl, productName, price, description } = this.state.currentProduct;
     return (
-      <div className='col-12 text-center p-3'>
-        <h4 className="card-title">{productName}</h4>
-        <img className='img-detail img-fluid p-3' src={pictureUrl} alt={description}></img>
-        <h5 className='price'>{`$${price}.00`}</h5>
-        <div className='text-left m-3'>
-          <h5 className='heading'>Description:</h5>
-          <h6>{description}</h6>
+      <div className='container'>
+        <div className='col-12 text-center p-3'>
+          <h4 className="card-title">{productName}</h4>
+          <img className='img-detail w-50 h-auto p-3' src={pictureUrl} alt={description}></img>
+          <h5 className='price'>{`$${price}.00`}</h5>
+          <div className='text-left m-3'>
+            <h5 className='heading'>Description:</h5>
+            <h6>{description}</h6>
+          </div>
+          {this.renderForm()}
         </div>
-        {this.renderForm()}
       </div>
-
     );
   }
 }
