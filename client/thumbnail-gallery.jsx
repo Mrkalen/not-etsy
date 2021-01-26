@@ -69,10 +69,3 @@ export default class ThumbnailGallery extends React.Component {
     );
   }
 }
-
-// const items = props.products.slice(firstItem, firstItem + 3);
-// if (items.length === 2) {
-//   items.concat(props.products.slice(0, 1));
-// } else if (items.length === 1) {
-//   items.concat(props.products);
-// }
