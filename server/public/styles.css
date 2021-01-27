@@ -7,6 +7,10 @@ i {
   color: #66acad;
 }
 
+i:hover {
+  cursor: pointer;
+}
+
 textarea {
   border-radius: 5px;
   resize: none;
@@ -22,8 +26,9 @@ select {
   font-family: 'Roboto', sans-serif;
 }
 
-img {
+.img-card {
   height: 10rem;
+  width: 10rem;
   object-fit: cover;
 }
 
@@ -135,4 +140,28 @@ i.update-symbol {
   height: 5rem;
   width: 5rem;
   object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .home-image {
+    height: 10rem;
+    width: 10rem;
+    object-fit: cover;
+  }
+}
+
+@media screen and (min-width: 950px) {
+  .cart-card {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .media-form {
+    margin-left: 0.5rem !important;
+  }
+
+  .cart {
+    margin-right: 1rem;
+  }
 }

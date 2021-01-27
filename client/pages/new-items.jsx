@@ -7,7 +7,7 @@ function Product(props) {
     <div className='col-6 col-md-4 col-xl-2 col-lg-3'>
       <a href={`#details?productId=${productId}`}>
         <div className="item-cards mb-3 shadow-sm text-center" style={{ height: 15 + 'rem' }}>
-          <img className='card-img-top' src={pictureUrl}></img>
+          <img className='card-img-top img-card' src={pictureUrl}></img>
           <div className="card-body p-2">
             <h6 className="card-title">{productName}</h6>
             <h6 className='price'>{`$${price}.00`}</h6>

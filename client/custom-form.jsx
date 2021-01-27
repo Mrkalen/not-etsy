@@ -85,7 +85,7 @@ export default class CustomForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className='text-left m-3'>
+        <div className='text-left mr-0 m-3'>
           <label htmlFor='custom-request-custom' className='custom-request heading'>
             Please enter any custom details:
             </label>
@@ -93,7 +93,7 @@ export default class CustomForm extends React.Component {
             <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
           </div>
         </div>
-        <div className='row m-auto d-flex justify-content-around align-items-center'>
+        <div className='row m-auto d-flex justify-content-around justify-content-md-between align-items-center'>
           <div className="input-group col-4">
             <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty" id="qty-select-custom" aria-label="Example select with button addon">
               <option defaultValue value=''>QTY</option>
