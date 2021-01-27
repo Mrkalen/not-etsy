@@ -84,8 +84,8 @@ export default class BrandForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className='m-3 brand-form'>
-          <div className="input-group mb-2 w-50 mx-auto">
+        <div className='m-3 media-form'>
+          <div className="input-group mb-2 w-50 mx-auto media-form">
             <select onChange={this.handleChange} required value={this.state.customizations.brand} name='brand' className="custom-select team-name shadow-sm" id="custom-select-brand">
               <option defaultValue value=''>Team Name</option>
               <option value="rams">Ram&apos;s</option>
@@ -96,7 +96,7 @@ export default class BrandForm extends React.Component {
               <option value="dolphins">Dolphins</option>
             </select>
           </div>
-          <div className='text-left m-3'>
+          <div className='text-left m-3 media-form'>
             <label htmlFor='custom-request-brand' className='custom-request heading'>
               Please enter any custom details:
             </label>
@@ -104,8 +104,8 @@ export default class BrandForm extends React.Component {
               <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
             </div>
           </div>
-          <div className='row m-auto d-flex justify-content-around align-items-center'>
-            <div className="input-group col-4">
+          <div className='row m-auto d-flex justify-content-around justify-content-md-between align-items-center'>
+            <div className="input-group col-4 pl-2">
               <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty" id="qty-select-brand" aria-label="Example select with button addon">
                 <option defaultValue value=''>QTY</option>
                 <option value="1">1</option>

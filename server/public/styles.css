@@ -157,9 +157,11 @@ i.update-symbol {
 }
 
 @media screen and (min-width: 400px) {
-  .brand-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+  .media-form {
+    margin-left: 0.5rem !important;
+  }
+
+  .cart {
+    margin-right: 1rem;
   }
 }
