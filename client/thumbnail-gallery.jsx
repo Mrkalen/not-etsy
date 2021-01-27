@@ -47,13 +47,13 @@ export default class ThumbnailGallery extends React.Component {
             <h2>{title}</h2>
           </a>
         </div>
-        <div className='d-flex flex-row align-items-center justify-content-between'>
+        <div className='d-flex flex-row align-items-center justify-content-center'>
           <i onClick={this.handleClick} className="fas fa-chevron-left pr-2" id='chevLeft'></i>
-          <div className='row d-flex justify-content-around'>
+          <div className='d-flex m-2'>
             {items.map((product, index) => {
               return (
                 <div className={display} key={product.productId}>
-                  <div className='col-4 justify-content-center p-0'>
+                  <div className='col-4 justify-content-center p-0 m-0'>
                     <a href={`#details?productId=${product.productId}`}>
                       <img src={product.pictureUrl} className='home-image mx-2'></img>
                     </a>
