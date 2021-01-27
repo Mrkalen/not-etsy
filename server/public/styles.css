@@ -155,3 +155,11 @@ i.update-symbol {
     width: 75%;
   }
 }
+
+@media screen and (min-width: 400px) {
+  .brand-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+}

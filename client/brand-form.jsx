@@ -84,7 +84,7 @@ export default class BrandForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className='text-left m-3'>
+        <div className='m-3 brand-form'>
           <div className="input-group mb-2 w-50 mx-auto">
             <select onChange={this.handleChange} required value={this.state.customizations.brand} name='brand' className="custom-select team-name shadow-sm" id="custom-select-brand">
               <option defaultValue value=''>Team Name</option>
