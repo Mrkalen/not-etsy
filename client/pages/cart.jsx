@@ -7,7 +7,7 @@ function Customization(props) {
       <div className='col-4 pl-2 pr-0 pt-2 customizations text-left'>
         <p className='customizations-title m-0'>Customizations</p>
         <p className='custom-request m-0'>Custom Request:</p>
-        <p className='customization m-0 p-1'>{props.customizations.customRequest}</p>
+        <p className='customization m-0 p-1'>{props.customizations.custom}</p>
       </div>
     );
   } else if (props.customizationId === 2) {
