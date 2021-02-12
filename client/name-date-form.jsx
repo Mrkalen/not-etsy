@@ -1,9 +1,11 @@
 import React from 'react';
+import CartModal from './cart-modal';
 
 export default class NameDateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      display: 'd-none',
       quantity: '',
       customizations: {
         name: '',
@@ -14,6 +16,7 @@ export default class NameDateForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleChange() {
@@ -60,6 +63,7 @@ export default class NameDateForm extends React.Component {
       })
       .then(() => {
         const newState = {
+          display: '',
           quantity: '',
           customizations: {
             name: '',
@@ -73,32 +77,36 @@ export default class NameDateForm extends React.Component {
       .catch(err => console.error('Error:', err.message));
   }
 
+  closeModal() {
+    this.setState({ display: 'd-none' });
+  }
+
   render() {
 
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='text-left m-3'>
-          <label htmlFor='custom-name-date' className='custom-name-date'>
+          <label htmlFor='custom-name-date' className='custom-name-date heading'>
             Please enter your last name and an est date:
           </label>
           <div className='custom-name-date-input d-flex justify-content-between'>
             <div className="input-group input-group-sm mb-3 pl-0 col-6">
-              <input onChange={this.handleChange} required value={this.state.customizations.name} name='name' type="text" className="form-control shadow" id='custom-request-name' placeholder='Name' aria-label="Input for name" aria-describedby="inputGroup-sizing-sm" />
+              <input onChange={this.handleChange} required value={this.state.customizations.name} name='name' type="text" className="form-control shadow-sm" id='custom-request-name' placeholder='Name' aria-label="Input for name" aria-describedby="inputGroup-sizing-sm" />
             </div>
             <div className="input-group input-group-sm mb-3 pr-0 col-6 ">
-              <input onChange={this.handleChange} required value={this.state.customizations.date} name='date' type="text" className="form-control shadow" id='custom-request-date' placeholder='Date' aria-label="Input for date" aria-describedby="inputGroup-sizing-sm" />
+              <input onChange={this.handleChange} required value={this.state.customizations.date} name='date' type="text" className="form-control shadow-sm" id='custom-request-date' placeholder='Date' aria-label="Input for date" aria-describedby="inputGroup-sizing-sm" />
             </div>
           </div>
-          <label htmlFor='custom-request-name-date' className='custom-request'>
+          <label htmlFor='custom-request-name-date' className='custom-request heading'>
             Please enter any custom details:
             </label>
           <div className="input-group">
             <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request-brand' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
           </div>
         </div>
-        <div className='row d-flex justify-content-around align-items-center'>
+        <div className='row m-auto d-flex justify-content-around justify-content-md-between align-items-center'>
           <div className="input-group col-4">
-            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow pr-3 qty" id="qty-select-name-date" aria-label="Quantity select for items with name and date">
+            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty" id="qty-select-name-date" aria-label="Quantity select for items with name and date">
               <option defaultValue value=''>QTY</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -107,7 +115,8 @@ export default class NameDateForm extends React.Component {
               <option value="5">5</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-primary col-4 p-0 shadow cart">Add to cart</button>
+          <button type="submit" className="btn btn-primary col-4 p-0 shadow-sm cart">Add to cart</button>
+          <CartModal display={this.state.display} closeModal={this.closeModal} />
         </div>
       </form>
     );

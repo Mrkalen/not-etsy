@@ -7,14 +7,29 @@ i {
   color: #66acad;
 }
 
+i:hover {
+  cursor: pointer;
+}
+
 textarea {
   border-radius: 5px;
   resize: none;
 }
 
-.img-no-detail {
-  object-fit: contain;
-  max-height: 10rem;
+a {
+  color: black;
+}
+
+h6,
+textarea,
+select {
+  font-family: 'Roboto', sans-serif;
+}
+
+.img-card {
+  height: 10rem;
+  width: 10rem;
+  object-fit: cover;
 }
 
 .title {
@@ -30,14 +45,6 @@ textarea {
   background-color: #c5f9fa;
 }
 
-.row {
-  margin: 1rem;
-}
-
-.card-body {
-  padding: 0.25rem 0;
-}
-
 .custom-request {
   font-size: 20px;
 }
@@ -47,7 +54,7 @@ textarea {
 }
 
 .team-name {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .custom-name-date {
@@ -82,4 +89,79 @@ textarea {
 
 i.update-symbol {
   font-size: 1rem;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: large;
+}
+
+.qty,
+.cart {
+  max-width: 6rem;
+  height: 2rem;
+}
+
+.cart-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.menu-background {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.menu-body {
+  position: fixed;
+  z-index: 1;
+  top: 110px;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: white;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-image {
+  height: 5rem;
+  width: 5rem;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .home-image {
+    height: 10rem;
+    width: 10rem;
+    object-fit: cover;
+  }
+}
+
+@media screen and (min-width: 950px) {
+  .cart-card {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .media-form {
+    margin-left: 0.5rem !important;
+  }
+
+  .cart {
+    margin-right: 1rem;
+  }
 }

@@ -1,9 +1,11 @@
 import React from 'react';
+import CartModal from './cart-modal';
 
 export default class CustomForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      display: 'd-none',
       currentProduct: null,
       quantity: '',
       customizations: {
@@ -15,6 +17,7 @@ export default class CustomForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleChange() {
@@ -61,6 +64,7 @@ export default class CustomForm extends React.Component {
       })
       .then(() => {
         const newState = {
+          display: '',
           quantity: '',
           customizations: {
             name: '',
@@ -74,20 +78,24 @@ export default class CustomForm extends React.Component {
       .catch(err => console.error('Error:', err.message));
   }
 
+  closeModal() {
+    this.setState({ display: 'd-none' });
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className='text-left m-3'>
-          <label htmlFor='custom-request-custom' className='custom-request'>
+        <div className='text-left mr-0 m-3'>
+          <label htmlFor='custom-request-custom' className='custom-request heading'>
             Please enter any custom details:
             </label>
           <div className="input-group">
-            <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request-brand' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
+            <textarea onChange={this.handleChange} value={this.state.customizations.custom} name='custom' id='custom-request' className="form-control" aria-label="With textarea" placeholder='Color, name, phrase, ...'></textarea>
           </div>
         </div>
-        <div className='row d-flex justify-content-around align-items-center'>
+        <div className='row m-auto d-flex justify-content-around justify-content-md-between align-items-center'>
           <div className="input-group col-4">
-            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow pr-3 qty" id="qty-select-custom" aria-label="Example select with button addon">
+            <select onChange={this.handleChange} required value={this.state.quantity} name='quantity' className="custom-select shadow-sm pr-3 pb-0 qty" id="qty-select-custom" aria-label="Example select with button addon">
               <option defaultValue value=''>QTY</option>
               <option value='1'>1</option>
               <option value='2'>2</option>
@@ -96,7 +104,8 @@ export default class CustomForm extends React.Component {
               <option value='5'>5</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-primary col-4 p-0 shadow cart">Add to cart</button>
+          <button type="submit" className="btn btn-primary col-4 p-0 shadow-sm cart">Add to cart</button>
+          <CartModal display={this.state.display} closeModal={this.closeModal} />
         </div>
       </form>
     );
