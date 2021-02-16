@@ -4,7 +4,7 @@ function Product(props) {
 
   const { pictureUrl, productName, price, productId } = props.product;
   return (
-    <div className='col-6 col-md-4 col-xl-2 col-lg-3'>
+    <div className='col-6 col-md-4 col-lg-3'>
       <a href={`#details?productId=${productId}`}>
         <div className="item-cards mb-3 shadow-sm text-center" style={{ height: 15 + 'rem' }}>
           <img className='card-img-top img-card' src={pictureUrl}></img>
@@ -42,7 +42,7 @@ class NewItems extends React.Component {
         <h2>New Items</h2>
       </div>
       <div className='container'>
-        <div className='row m-auto mx-0'>
+        <div className='d-flex justify-content-center row m-auto mx-0'>
           {this.state.products.map(product => {
             return (
               <Product
