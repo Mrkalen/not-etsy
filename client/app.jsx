@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './header';
 import NewItems from './pages/new-items';
+import Ornaments from './pages/ornaments';
+import WallDecor from './pages/wall-decor';
 import parseRoute from './lib/parse-route';
 import Details from './pages/details';
 import Cart from './pages/cart';
@@ -51,6 +53,14 @@ export default class App extends React.Component {
     } else if (route.path === '') {
       return (
         <Home />
+      );
+    } else if (route.path === 'ornaments') {
+      return (
+        <Ornaments />
+      );
+    } else if (route.path === 'wall-decor') {
+      return (
+        <WallDecor />
       );
     }
   }
