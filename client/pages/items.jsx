@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Product(props) {
 
@@ -18,32 +18,41 @@ function Product(props) {
   );
 }
 
-class NewItems extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { products: [] };
-  }
+function Items(props) {
+  const [products, setProducts] = useState([]);
 
-  componentDidMount() {
-    this.getProducts();
-  }
-
-  getProducts() {
+  useEffect(() => {
     fetch('/api/products')
       .then(res => res.json())
-      .then(products => this.setState({ products }))
+      .then(products => setProducts(products))
       .catch(err => console.error('GET error', err.message));
+  }, []);
+
+  let items = [];
+  let title = '';
+  if (props.route === 'new-items') {
+    items = products;
+    title = 'New Items';
+  } else if (props.route === 'ornaments') {
+    items = products.filter(product => {
+      return (product.categoryId === 1);
+    });
+    title = 'Ornaments';
+  } else if (props.route === 'wall-decor') {
+    items = products.filter(product => {
+      return (product.categoryId === 3);
+    });
+    title = 'Wall Decor';
   }
 
-  render() {
-    return (
+  return (
       <>
       <div className='category-title text-center w-100 mb-2'>
-        <h2>New Items</h2>
+        <h2>{title}</h2>
       </div>
       <div className='container'>
         <div className='d-flex justify-content-center row m-auto mx-0'>
-          {this.state.products.map(product => {
+          {items.map(product => {
             return (
               <Product
                 key={product.productId}
@@ -54,8 +63,7 @@ class NewItems extends React.Component {
         </div>
       </div>
       </>
-    );
-  }
+  );
 }
 
-export default NewItems;
+export default Items;

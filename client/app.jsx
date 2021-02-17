@@ -1,8 +1,6 @@
 import React from 'react';
 import Header from './header';
-import NewItems from './pages/new-items';
-import Ornaments from './pages/ornaments';
-import WallDecor from './pages/wall-decor';
+import Items from './pages/items';
 import parseRoute from './lib/parse-route';
 import Details from './pages/details';
 import Cart from './pages/cart';
@@ -36,10 +34,10 @@ export default class App extends React.Component {
   renderPage() {
     const prodId = this.state.route.params.get('productId');
     const { route } = this.state;
-    if (route.path === 'new-items') {
+    if (route.path === 'new-items' || route.path === 'ornaments' || route.path === 'wall-decor') {
       return (
         <div className='row m-auto'>
-          { <NewItems />}
+          { <Items route={route.path}/>}
         </div>
       );
     } else if (route.path === 'details') {
@@ -53,14 +51,6 @@ export default class App extends React.Component {
     } else if (route.path === '') {
       return (
         <Home />
-      );
-    } else if (route.path === 'ornaments') {
-      return (
-        <Ornaments />
-      );
-    } else if (route.path === 'wall-decor') {
-      return (
-        <WallDecor />
       );
     }
   }
